@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Music Matcher</title>
+  <script src="jspsych-6.1.0/jspsych.js"></script>
+  <script src="jspsych-6.1.0/plugins/jspsych-html-keyboard-response.js"></script>
+  <script src="jspsych-6.1.0/plugins/jspsych-audio-keyboard-response.js"></script>
+  <script src="jspsych-6.1.0/plugins/jspsych-image-keyboard-response.js"></script>
+  <script src="jspsych-6.1.0/plugins/jspsych-survey-likert.js"></script>
+  <script src="jspsych-6.1.0/plugins/jspsych-survey-multi-choice.js"></script>
+  <script src="jspsych-6.1.0/plugins/jspsych-survey-multi-choice.js"></script>
+  <link href="jspsych-6.1.0/css/jspsych.css" rel="stylesheet" type="text/css">
+  </link>
+</head>
+
+<body></body>
+<script>
+  /* create timeline */
+  var timeline = [];
+
+  /* define welcome message trial */
+  var welcome = {
+    type: "html-keyboard-response",
+    stimulus: "Welcome to the experiment. Press any key to begin."
+  };
+  timeline.push(welcome);
+
+
+  /* Experiment instructions */
+
+  var trial_instructions = {
+    type: "html-keyboard-response",
+    stimulus: "<p>In this study you will hear a short musical clip and then see either a word, an image, or hear another short clip</p>" +
+      "<p>Your job is to say if the emotion in the first song matches the emotion in the word, image, or second song</p>" +
+      "<p>If the emotion <strong>MATCHES</strong> press the <strong>F</strong> key</p>" +
+      "<p>If the emotion <strong>DOES NOT MATCH</strong> press the <strong>J</strong> key</p>" +
+      "<p>Press the space bar to begin</p>",
+    choices: ['spacebar']
+  };
+  timeline.push(trial_instructions);
+
+  /* Experimental trials */
+
+  /* Cue trial happy */
+
+  var happy_cue = {
+    type: "audio-keyboard-response",
+    stimulus: "mp3/happy_cue_1.mp3",
+    choices: ['f', 'j'],
+    trial_duration: 1000
+  }
+
+  /* isi */
+
+  var isi = {
+    type: 'html-keyboard-response',
+    stimulus: '<div style="font-size:60px;">+</div>',
+    choices: jsPsych.NO_KEYS,
+    trial_duration: 200,
+  }
+
+  var sad_target = {
+    type: "audio-keyboard-response",
+    stimulus: "mp3/sad_target_1.mp3",
+    choices: ['f', 'j'],
+    trial_duration: 2500
+  }
+  /* ITI */
+
+  var iti = {
+    type: 'html-keyboard-response',
+    stimulus: '<div style="font-size:60px;">+</div>',
+    choices: jsPsych.NO_KEYS,
+    trial_duration: 1500,
+  }
+
+  var song_song = {
+    timeline: [iti, happy_cue, isi, sad_target]
+  }
+
+  timeline.push(song_song)
+
+  var sad_word = {
+    type: "html-keyboard-response",
+    stimulus: "sad",
+    choices: ['f', 'j'],
+    trial_duration: 2500
+  }
+
+  var song_word = {
+    timeline: [iti, happy_cue, isi, sad_word]
+  }
+  timeline.push(song_word)
+
+  var happy_face = {
+    type: "image-keyboard-response",
+    stimulus: "img/happy_face.jpg",
+    choices: ['f', 'j'],
+    trial_duration: 2500
+  }
+
+  var song_face = {
+    timeline: [iti, happy_cue, isi, happy_face]
+  }
+  timeline.push(song_face)
+
+  var thanks = {
+    type: 'html-keyboard-response',
+    stimulus: "Thankyou"
+  };
+  timeline.push(thanks)
+
+  /* start the experiment */
+  jsPsych.init({
+    timeline: timeline,
+    use_webaudio: false,
+  });
+</script>
+
+</html>
