@@ -1,0 +1,7 @@
+Experiment instructions
+
+"<p>In this study you will hear a short musical clip and then see either a word, an image, or hear another short clip</p>" +
+"<p>Your job is to say if the emotion in the first song matches the emotion in the word, image, or second song</p>" +
+"<p>If the emotion <strong>MATCHES</strong> press the <strong>F</strong> key</p>" +
+"<p>If the emotion <strong>DOES NOT MATCH</strong> press the <strong>J</strong> key</p>" +
+"<p>press any key to begin</p>"
