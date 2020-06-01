@@ -1,0 +1,276 @@
+---
+title: "Results from lab pilot"
+output: 
+  html_document: 
+    code_folding: hide
+---
+
+```{r setup , include=FALSE}
+knitr::opts_chunk$set(
+  echo = TRUE,
+  message = FALSE,
+  warning = FALSE,
+  fig.align = "center",
+  fig.width = 4,
+  fig.height = 4,
+  dev = "png",
+  cache = TRUE
+)
+```
+
+```{r library}
+library(tidyverse)
+library(ggpubr)
+library(yardstick)
+```
+
+```{r load-data}
+lab_data <- here::here(
+  "analysis",
+  "lab_pilot",
+  "data",
+  "processed",
+  "combined_lab_pilot_data.csv"
+) %>%
+  read_csv()
+
+lab_data <- lab_data %>%
+  tidyr::separate(
+    stimulus_song,
+    into = c("folder", "file"),
+    sep = "/"
+  )
+```
+
+# Overview 
+
+The pilot presented a range of musical clips (1 sec in duration) that were taken from songs that had been tagged as happy, sad, angry, or relaxed on last.fm. Participants rated the emotion of the musical clip, it's expressed valence and expressed arousal. 
+
+As shown below, the data have been structure so that each trial is in one row. Target refelcts what to song was tagged as and emotion reflects the emotion the participant labelled the clip as.
+
+```{r echo = FALSE}
+lab_data %>%
+  filter(emotion != "none of these") %>%
+  sample_n(10) %>%
+  knitr::kable(
+    format = "html"
+  ) %>%
+  kableExtra::kable_styling(
+    bootstrap_options = "hover"
+  )
+```
+
+# Calculating accuracy 
+
+## Participant ranges 
+
+```{r}
+
+p_id <- lab_data %>%
+  select(subject) %>%
+  distinct() %>%
+  as.list() %>%
+  .$subject
+
+lab_accuracy <- data.frame(stringsAsFactors = FALSE)
+
+for (i in 1:length(p_id)) {
+  sub_tmp <- p_id[i]
+  data_tmp <- lab_data %>%
+    filter(subject == sub_tmp)
+  obs_tmp <- nrow(data_tmp)
+  correct_tmp <- data_tmp %>%
+    filter(correct == TRUE) %>%
+    nrow()
+  acc_tmp <- ((correct_tmp / obs_tmp) * 100)
+  row_tmp <- cbind(sub_tmp, obs_tmp, correct_tmp, acc_tmp)
+  lab_accuracy <- rbind(lab_accuracy, row_tmp)
+}
+
+fac_to_num <- function(.x) {
+  as.numeric(as.character(.x))
+}
+
+lab_accuracy <- lab_accuracy %>%
+  mutate_at(.vars = vars("obs_tmp", "correct_tmp", "acc_tmp"), fac_to_num)
+```
+It would be helpful to see if there is variance in participant responses. 
+
+The results indicate that the mean accuracy was `r round(mean(lab_accuracy$acc_tmp), 2)` with a standard deviation of `r round(sd(lab_accuracy$acc_tmp), 2)`.  
+
+## Accuracy by emotion  
+
+I would like to see the accuracy for each emotion. It can be seen that relaxation was the most difficult to accurately categorise
+
+```{r}
+by_file <- lab_data %>%
+  group_by(target) %>%
+  summarise(prop_correct = sum(correct) / n()) %>%
+  arrange(target)
+
+by_file %>%
+  knitr::kable(
+    format = "html",
+  ) %>%
+  kableExtra::kable_styling(
+    bootstrap_options = "hover"
+  )
+```
+
+From the confusion matrix it can be seen that relaxed is most easily confused with sad
+
+```{r}
+table(lab_data$target, 
+      lab_data$emotion) %>% 
+  knitr::kable(
+    format = "html"
+  ) %>% 
+    kableExtra::kable_styling(
+    bootstrap_options = "hover"
+  )
+```
+
+
+And of each song 
+```{r}
+by_song <- lab_data %>%
+  group_by(file) %>%
+  mutate(prop_correct = sum(correct) / n()) %>%
+  distinct(
+    file,
+    .keep_all = TRUE
+  ) %>%
+  select(
+    target,
+    file,
+    prop_correct
+  ) %>%
+  arrange(target)
+
+by_song %>%
+  knitr::kable(
+    format = "html",
+  ) %>%
+  kableExtra::kable_styling(
+    bootstrap_options = "hover"
+  ) %>%
+  kableExtra::scroll_box(
+    height = "250px"
+  )
+```
+
+There was a large range in proportion of correct responses accross songs. The mean accuracy was `r mean(by_song$prop_correct)` and the SD was `r mean(by_song$prop_correct)`. This can also be seen in the plot below
+```{r}
+
+by_song %>% 
+  group_by(target) %>% 
+  summarise(mean = mean(prop_correct), 
+            sd = sd(prop_correct)) %>% 
+  ggplot2::ggplot(
+    aes(x = target, 
+        y = mean, 
+        color = target,
+        fill = target
+    ) 
+  ) + 
+  ggplot2::geom_bar(
+    stat = "identity"
+  ) + 
+  geom_errorbar(
+    aes(ymin = mean - sd, 
+        ymax = mean + sd), 
+    width = .4, 
+    color = "black"
+  ) + 
+  ggplot2::ylim(0, 1) +
+  ggplot2::theme_classic()
+
+
+```
+
+I am largely interested in happy and sad songs that appear viable in terms of variability. For this is set accuracy as above 50% 
+
+```{r}
+by_song %>% 
+  filter(
+    prop_correct > .5
+    ) %>% 
+  arrange(target) %>% 
+  knitr::kable(
+    format = "html"
+  ) %>%
+  kableExtra::kable_styling(
+    bootstrap_options = "hover"
+  ) %>%
+  kableExtra::scroll_box(
+    height = "250px"
+  )
+  
+```
+
+As there are time constraints I also want to see the songs with very poor accuracy 
+
+```{r}
+by_song %>% 
+  filter(
+    prop_correct < .45
+    ) %>% 
+  arrange(target) %>% 
+  knitr::kable(
+    format = "html"
+  ) %>%
+  kableExtra::kable_styling(
+    bootstrap_options = "hover"
+  ) %>%
+  kableExtra::scroll_box(
+    height = "250px"
+  )
+  
+```
+
+
+# Valence and Arousal 
+
+Valence and arousal ratings were consistent with thier predicted location on the circumplex.
+
+```{r}
+lab_data %>%
+  group_by(file) %>% 
+  mutate(valence = mean(valence),
+            arousal = mean(arousal)
+            ) %>% 
+  ggplot2::ggplot(
+    aes(x = valence, 
+        y = arousal, 
+        color = target, 
+        fill = target)
+  ) + 
+  ggplot2::geom_point() +
+  ggplot2::xlim(0, 100) + 
+  ggplot2::ylim(0, 100) + 
+  ggplot2::geom_vline(
+    xintercept = 50,
+    linetype = "dotted"
+    ) + 
+  ggplot2::geom_hline(
+    yintercept = 50, 
+    linetype = "dotted"
+    ) +
+  ggplot2::xlab("Valence Rating") + 
+  ggplot2::ylab("Arousal Rating") + 
+  ggplot2::theme_classic()
+  
+```
+
+
+
+
+
+
+
+
+
+
+
+
+

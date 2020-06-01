@@ -1,0 +1,46 @@
+subject,trial_index,stimulus_song,target,emotion,valence,arousal,correct
+qd7yfgtyypvrqy3,0,mp3/19_I_hate_Everything_About_You.mp3,angry,angry,4,100,TRUE
+qd7yfgtyypvrqy3,1,mp3/21_Skank_Down.mp3,happy,happy,90,94,TRUE
+qd7yfgtyypvrqy3,2,mp3/3_Walk_on_the_wild_side.mp3,relaxed,relaxed,61,24,TRUE
+qd7yfgtyypvrqy3,3,mp3/24_Restless.mp3,happy,happy,98,66,TRUE
+qd7yfgtyypvrqy3,4,mp3/2_Boser_Wolf.mp3,sad,relaxed,34,55,FALSE
+qd7yfgtyypvrqy3,5,mp3/25_Old_Blacktop_[Album_Version].mp3,sad,sad,38,38,TRUE
+qd7yfgtyypvrqy3,6,mp3/8_Restless.mp3,happy,none of these,50,69,FALSE
+qd7yfgtyypvrqy3,7,mp3/13_Boser_Wolf.mp3,sad,relaxed,51,29,FALSE
+qd7yfgtyypvrqy3,8,mp3/2_Blood_On_The_Ground.mp3,angry,angry,0,86,TRUE
+qd7yfgtyypvrqy3,9,mp3/7_Digital.mp3,relaxed,sad,50,64,FALSE
+qd7yfgtyypvrqy3,10,mp3/5_Valerie.mp3,happy,happy,62,80,TRUE
+qd7yfgtyypvrqy3,11,mp3/4_Destiny.mp3,relaxed,none of these,42,67,FALSE
+qd7yfgtyypvrqy3,12,mp3/12_Fire_And_Rain_(LP_Version).mp3,sad,relaxed,44,19,FALSE
+qd7yfgtyypvrqy3,13,mp3/2_On_A_Slow_Boat_To_China.mp3,relaxed,happy,82,19,FALSE
+qd7yfgtyypvrqy3,14,mp3/5_Love's_Requiem.mp3,sad,sad,19,16,TRUE
+qd7yfgtyypvrqy3,15,mp3/16_Restless.mp3,happy,angry,40,89,FALSE
+qd7yfgtyypvrqy3,16,mp3/12_Skinny_Love.mp3,sad,sad,7,16,TRUE
+qd7yfgtyypvrqy3,17,mp3/3_Old_Blacktop_[Album_Version].mp3,sad,relaxed,39,22,FALSE
+qd7yfgtyypvrqy3,18,mp3/12_Skank_Down.mp3,happy,happy,98,93,TRUE
+qd7yfgtyypvrqy3,19,mp3/14_Get_Lucky.mp3,happy,happy,97,75,TRUE
+qd7yfgtyypvrqy3,20,mp3/5_Get_Lucky.mp3,happy,happy,100,67,TRUE
+qd7yfgtyypvrqy3,21,mp3/7_Here_Today.mp3,relaxed,sad,37,0,FALSE
+qd7yfgtyypvrqy3,22,mp3/26_It_Only_Hurts_When_I'm_Breathing.mp3,sad,sad,29,72,TRUE
+qd7yfgtyypvrqy3,23,mp3/4_Make_Light.mp3,happy,happy,69,76,TRUE
+qd7yfgtyypvrqy3,24,mp3/4_Come_On_Baby.mp3,relaxed,sad,15,60,FALSE
+qd7yfgtyypvrqy3,25,mp3/23_Inside.mp3,sad,sad,38,57,TRUE
+qd7yfgtyypvrqy3,26,mp3/2_Love's_Requiem.mp3,sad,sad,1,43,TRUE
+qd7yfgtyypvrqy3,27,mp3/28_Valerie.mp3,happy,happy,85,83,TRUE
+qd7yfgtyypvrqy3,28,mp3/11_Be_Happy.mp3,happy,sad,31,90,FALSE
+qd7yfgtyypvrqy3,29,mp3/1_The_Sweetest.mp3,relaxed,relaxed,50,39,TRUE
+qd7yfgtyypvrqy3,30,mp3/4_Mbube.mp3,happy,happy,73,65,TRUE
+qd7yfgtyypvrqy3,31,mp3/1_Skinny_Love.mp3,sad,sad,21,4,TRUE
+qd7yfgtyypvrqy3,32,mp3/9_Pain_(Live_Version).mp3,angry,angry,0,95,TRUE
+qd7yfgtyypvrqy3,33,mp3/13_Motown_Junk.mp3,angry,sad,23,100,FALSE
+qd7yfgtyypvrqy3,34,mp3/3_It_Only_Hurts_When_I'm_Breathing.mp3,sad,sad,24,80,TRUE
+qd7yfgtyypvrqy3,35,mp3/15_Bunkertor_7_(German_Texture).mp3,angry,angry,0,100,TRUE
+qd7yfgtyypvrqy3,36,mp3/15_Here_Today.mp3,sad,sad,27,0,TRUE
+qd7yfgtyypvrqy3,37,mp3/1_Be_Happy.mp3,happy,none of these,47,65,FALSE
+qd7yfgtyypvrqy3,38,mp3/8_Fire_And_Rain__(LP_Version).mp3,sad,sad,28,62,TRUE
+qd7yfgtyypvrqy3,39,mp3/2_Sweet_Song.mp3,relaxed,relaxed,41,23,TRUE
+qd7yfgtyypvrqy3,40,mp3/2_Inside.mp3,sad,sad,44,66,TRUE
+qd7yfgtyypvrqy3,41,mp3/26_Make_Light.mp3,happy,none of these,39,68,FALSE
+qd7yfgtyypvrqy3,42,mp3/2_Incomplete.mp3,angry,sad,0,82,FALSE
+qd7yfgtyypvrqy3,43,mp3/13_If_The_Creeks_Don't_Rise.mp3,happy,happy,80,86,TRUE
+qd7yfgtyypvrqy3,44,mp3/9_If_The_Creeks_Don't_Rise.mp3,happy,happy,96,84,TRUE

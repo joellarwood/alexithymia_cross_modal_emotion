@@ -1,0 +1,46 @@
+subject,trial_index,stimulus_song,target,emotion,valence,arousal,correct
+r5l2vw7lqxdnfg7,0,audio/5_Get_Lucky.mp3,happy,happy,77,57,TRUE
+r5l2vw7lqxdnfg7,1,audio/24_Restless.mp3,happy,happy,77,84,TRUE
+r5l2vw7lqxdnfg7,2,audio/2_Inside.mp3,sad,sad,47,30,TRUE
+r5l2vw7lqxdnfg7,3,audio/15_Here_Today.mp3,sad,relaxed,50,50,FALSE
+r5l2vw7lqxdnfg7,4,audio/15_Bunkertor_7_(German_Texture).mp3,angry,angry,45,90,TRUE
+r5l2vw7lqxdnfg7,5,audio/23_Inside.mp3,sad,happy,64,63,FALSE
+r5l2vw7lqxdnfg7,6,audio/7_Digital.mp3,relaxed,happy,58,78,FALSE
+r5l2vw7lqxdnfg7,7,audio/8_Fire_And_Rain__(LP_Version).mp3,sad,relaxed,65,32,FALSE
+r5l2vw7lqxdnfg7,8,audio/13_If_The_Creeks_Don't_Rise.mp3,happy,happy,68,78,TRUE
+r5l2vw7lqxdnfg7,9,audio/1_Skinny_Love.mp3,sad,sad,24,43,TRUE
+r5l2vw7lqxdnfg7,10,audio/4_Make_Light.mp3,happy,happy,76,67,TRUE
+r5l2vw7lqxdnfg7,11,audio/19_I_hate_Everything_About_You.mp3,angry,angry,35,87,TRUE
+r5l2vw7lqxdnfg7,12,audio/21_Skank_Down.mp3,happy,happy,82,76,TRUE
+r5l2vw7lqxdnfg7,13,audio/1_Be_Happy.mp3,happy,happy,77,86,TRUE
+r5l2vw7lqxdnfg7,14,audio/4_Destiny.mp3,relaxed,relaxed,50,50,TRUE
+r5l2vw7lqxdnfg7,15,audio/11_Be_Happy.mp3,happy,happy,73,77,TRUE
+r5l2vw7lqxdnfg7,16,audio/12_Fire_And_Rain_(LP_Version).mp3,sad,relaxed,57,38,FALSE
+r5l2vw7lqxdnfg7,17,audio/5_Valerie.mp3,happy,happy,73,81,TRUE
+r5l2vw7lqxdnfg7,18,audio/3_Old_Blacktop_[Album_Version].mp3,sad,sad,28,28,TRUE
+r5l2vw7lqxdnfg7,19,audio/1_The_Sweetest.mp3,relaxed,none of these,50,50,FALSE
+r5l2vw7lqxdnfg7,20,audio/13_Motown_Junk.mp3,angry,angry,38,77,TRUE
+r5l2vw7lqxdnfg7,21,audio/4_Mbube.mp3,relaxed,happy,65,70,FALSE
+r5l2vw7lqxdnfg7,22,audio/2_Incomplete.mp3,angry,angry,20,78,TRUE
+r5l2vw7lqxdnfg7,23,audio/16_Restless.mp3,happy,happy,71,65,TRUE
+r5l2vw7lqxdnfg7,24,audio/2_Boser_Wolf.mp3,sad,sad,37,26,TRUE
+r5l2vw7lqxdnfg7,25,audio/8_Restless.mp3,happy,happy,71,87,TRUE
+r5l2vw7lqxdnfg7,26,audio/5_Love's_Requiem.mp3,sad,sad,16,17,TRUE
+r5l2vw7lqxdnfg7,27,audio/12_Skinny_Love.mp3,sad,sad,16,14,TRUE
+r5l2vw7lqxdnfg7,28,audio/2_Sweet_Song.mp3,relaxed,sad,16,6,FALSE
+r5l2vw7lqxdnfg7,29,audio/2_Blood_On_The_Ground.mp3,angry,angry,23,77,TRUE
+r5l2vw7lqxdnfg7,30,audio/12_Skank_Down.mp3,happy,happy,78,78,TRUE
+r5l2vw7lqxdnfg7,31,audio/3_Walk_on_the_wild_side.mp3,relaxed,relaxed,50,50,TRUE
+r5l2vw7lqxdnfg7,32,audio/14_Get_Lucky.mp3,happy,happy,66,67,TRUE
+r5l2vw7lqxdnfg7,33,audio/9_If_The_Creeks_Don't_Rise.mp3,happy,happy,63,73,TRUE
+r5l2vw7lqxdnfg7,34,audio/4_Come_On_Baby.mp3,relaxed,relaxed,50,50,TRUE
+r5l2vw7lqxdnfg7,35,audio/26_Make_Light.mp3,happy,happy,73,84,TRUE
+r5l2vw7lqxdnfg7,36,audio/26_It_Only_Hurts_When_I'm_Breathing.mp3,sad,sad,25,14,TRUE
+r5l2vw7lqxdnfg7,37,audio/2_On_A_Slow_Boat_To_China.mp3,relaxed,none of these,50,50,FALSE
+r5l2vw7lqxdnfg7,38,audio/28_Valerie.mp3,happy,happy,76,81,TRUE
+r5l2vw7lqxdnfg7,39,audio/13_Boser_Wolf.mp3,sad,sad,23,10,TRUE
+r5l2vw7lqxdnfg7,40,audio/3_It_Only_Hurts_When_I'm_Breathing.mp3,sad,sad,20,18,TRUE
+r5l2vw7lqxdnfg7,41,audio/25_Old_Blacktop_[Album_Version].mp3,sad,sad,19,18,TRUE
+r5l2vw7lqxdnfg7,42,audio/7_Here_Today.mp3,sad,none of these,50,50,FALSE
+r5l2vw7lqxdnfg7,43,audio/9_Pain_(Live_Version).mp3,angry,angry,17,81,TRUE
+r5l2vw7lqxdnfg7,44,audio/2_Love's_Requiem.mp3,sad,sad,6,11,TRUE
