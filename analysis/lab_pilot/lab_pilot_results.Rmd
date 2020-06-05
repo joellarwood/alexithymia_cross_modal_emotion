@@ -9,7 +9,7 @@ output:
 knitr::opts_chunk$set(
   echo = TRUE,
   message = FALSE,
-  warning = FALSE,
+  warnings = FALSE,
   fig.align = "center",
   fig.width = 4,
   fig.height = 4,
@@ -21,7 +21,6 @@ knitr::opts_chunk$set(
 ```{r library}
 library(tidyverse)
 library(ggpubr)
-library(yardstick)
 ```
 
 ```{r load-data}
@@ -131,7 +130,7 @@ table(lab_data$target,
 ```
 
 
-And of each song 
+## Accuracy by song 
 ```{r}
 by_song <- lab_data %>%
   group_by(file) %>%
@@ -142,6 +141,7 @@ by_song <- lab_data %>%
   ) %>%
   select(
     target,
+    emotion,
     file,
     prop_correct
   ) %>%
@@ -228,7 +228,83 @@ by_song %>%
   
 ```
 
+### Confusion matrix by song
 
+####  Happy songs 
+
+```{r}
+
+happy <- lab_data %>% 
+    filter(target == "happy")
+
+table(
+    happy$file, 
+      happy$emotion
+    ) %>% 
+  knitr::kable(
+    format = "html"
+  ) %>% 
+    kableExtra::kable_styling(
+    bootstrap_options = "hover"
+  ) 
+```
+
+####  Happy songs 
+
+```{r}
+
+sad <- lab_data %>% 
+    filter(target == "sad")
+
+table(
+    sad$file, 
+      sad$emotion
+    ) %>% 
+  knitr::kable(
+    format = "html"
+  ) %>% 
+    kableExtra::kable_styling(
+    bootstrap_options = "hover"
+  ) 
+```
+
+####  relaxed songs 
+
+```{r}
+
+relaxed <- lab_data %>% 
+    filter(target == "relaxed")
+
+table(
+    relaxed$file, 
+      relaxed$emotion
+    ) %>% 
+  knitr::kable(
+    format = "html"
+  ) %>% 
+    kableExtra::kable_styling(
+    bootstrap_options = "hover"
+  ) 
+```
+
+####  angry songs 
+
+```{r}
+
+angry <- lab_data %>% 
+    filter(target == "angry")
+
+table(
+    angry$file, 
+      angry$emotion
+    ) %>% 
+  knitr::kable(
+    format = "html"
+  ) %>% 
+    kableExtra::kable_styling(
+    bootstrap_options = "hover"
+  ) 
+```
 # Valence and Arousal 
 
 Valence and arousal ratings were consistent with thier predicted location on the circumplex.
