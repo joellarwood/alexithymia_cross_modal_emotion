@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Music Selector</title>
+  <script src="jspsych-6.1.0/jspsych.js"></script>
+  <script src="jspsych-6.1.0/plugins/jspsych-html-keyboard-response.js"></script>
+  <script src="jspsych-6.1.0/plugins/jspsych-survey-likert.js"></script>
+  <script src="jspsych-6.1.0/plugins/jspsych-html-slider-response.js"></script>
+  <script src="jspsych-6.1.0/plugins/jspsych-audio-keyboard-response.js"></script>
+  <script src="jspsych-6.1.0/plugins/jspsych-survey-multi-choice.js"></script>
+  <script src="jspsych-6.1.0/plugins/jspsych-instructions.js"></script>
+  <script src="jspsych-6.1.0/plugins/jspsych-external-html.js"></script>
+  <script src="music_trials.js"></script>
+  <link href="jspsych-6.1.0/css/jspsych.css" rel="stylesheet" type="text/css">
+  <!--  <script src="/assets/javascripts/jatos.js"></script> -->
+  </link>
+</head>
+
+<body></body>
+<script>
+  /* create timeline */
+  var timeline = [];
+
+  /* assign subject ID */
+  var subject_id = jsPsych.randomization.randomID(15);
+  jsPsych.data.addProperties({
+    subject: subject_id
+  });
+
+  /*
+  var check_consent = function (elem) {
+    if (document.getElementById('consent_checkbox').checked) {
+      return true;
+    } else {
+      alert(
+        "If you wish to participate, you must check the box next to the statement 'I agree to participate in this study.'"
+        );
+      return false;
+    }
+    return false;
+  };
+
+
+  var consent = {
+    type: 'external-html',
+    url: 'static/consent.html',
+    cont_btn: "start",
+    check_fn: check_consent
+  };
+  */
+
+  //timeline.push(consent)
+
+  // declare instructions
+
+  var instructions = {
+    type: 'instructions',
+    pages: [
+      "Welcome to the Experiment. Please Click next to begin",
+      "<p>In this study you will listen to a number of short musical clips. </p>",
+      "<p>You will then be presented with either anotehr song, an image, or a word<p>",
+      "Your task is to say whether the emotion in the song you first heard atches the emotion in the stimulus that follows<p>",
+      "<p>Finally you will rate how pleasant the feeling expressed by the song is and also how energetic/activating it was</p>",
+      "On the next page a song will play automatically. </p><p>Please adjust the volume so that the song is at a comfortable volume <br>",
+      "Adjust the volume on your computer so that it is at a comfortable level. </p>" +
+      "<p><audio autoplay src='audio/test_audio_short.mp3'></audio></p>" +
+      "Press next when the audio is at a comfortable level",
+      "<p> The experiment will begin when you press next. </p><p>Remember that you are rating emotion or feeling you think the song is trying to express"
+    ],
+    show_clickable_nav: true
+  }
+
+  timeline.push(instructions)
+
+
+  /* define audio */
+  var all_songs = [
+    "audio/5_Get_Lucky.mp3",
+    "audio/16_Restless.mp3",
+    "audio/7_Here_Today.mp3",
+    "audio/2_Inside.mp3",
+    "audio/13_Motown_Junk.mp3",
+    "audio/2_Incomplete.mp3",
+    "audio/21_Skank_Down.mp3",
+    "audio/26_Make_Light.mp3",
+    "audio/1_Be_Happy.mp3",
+    "audio/5_Valerie.mp3",
+    "audio/2_Loves_Requiem.mp3",
+    "audio/8_Fire_And_Rain__(LP_Version).mp3",
+    "audio/3_Old_Blacktop.mp3",
+    "audio/12_Skinny_Love.mp3"
+  ]
+
+  /* define welcome message trial */
+  var welcome = {
+    type: "html-keyboard-response",
+    stimulus: "Welcome to the experiment. Press any key to begin.",
+    data: {
+      test_part: "welcome"
+    }
+  };
+  timeline.push(welcome);
+
+  /* Experiment instructions */
+
+  var trial_instructions = {
+    type: "html-keyboard-response",
+    stimulus: "<p>In this study you will hear a short musical clip and then make some ratings about the emotion it expresses or conveys</p>" +
+      "<p>If the emotion in the two songs match the press the left arrow key (<-)</p>" +
+      "<p>If the emotion in the two songs does not match then press the right arrow key (->)" +
+      "<p>Please be as quick and accurate as possible</p>" +
+      "<p>Press the space bar to begin</p>",
+    choices: ['spacebar'],
+    data: {
+      test_part: "instruction"
+    }
+  };
+  timeline.push(trial_instructions);
+
+  /* Create music match task */
+
+  /* Experiment parameters */
+  var prime_duration = 1000;
+  var target_duration = 2000;
+
+  var iti = {
+    type: 'html-keyboard-response',
+    stimulus: '<div style="font-size:60px;">+</div>',
+    choices: jsPsych.NO_KEYS,
+    trial_duration: 1000,
+    data: {
+      test_part: "iti"
+    }
+  }
+
+  var song_cue = {
+    type: "audio-keyboard-response",
+    stimulus: jsPsych.timelineVariable('cue'),
+    trial_duration: prime_duration,
+    choices: jsPsych.NO_KEYS,
+    data: {
+      task: 'cue',
+      cue_song: jsPsych.timelineVariable('cue'),
+      cue_emotion: jsPsych.timelineVariable('cue_emotion')
+    }
+  }
+
+  var isi = {
+    type: 'html-keyboard-response',
+    stimulus: '<div style="font-size:60px;">+</div>',
+    choices: jsPsych.NO_KEYS,
+    trial_duration: 200,
+    data: {
+      test_part: "isi"
+    }
+  }
+
+  var song_target = {
+    type: "audio-keyboard-response",
+    stimulus: jsPsych.timelineVariable('target'),
+    trial_duration: target_duration,
+    post_trial_gap: isi,
+    choices: ("37", "39"),
+    data: {
+      task: 'target',
+      target_song: jsPsych.timelineVariable('target'),
+      target_emotion: jsPsych.timelineVariable('target_emotion')
+    }
+  }
+
+  var music_music = {
+    timeline: [iti, song_cue, isi, song_target],
+    timeline_variables: music_trials,
+    randomize_order: true,
+    data: {
+      block: 'music',
+      condition: jsPsych.timelineVariable('condition')
+    }
+  }
+  timeline.push(music_music);
+
+
+  /*  var thanks = {
+      type: 'html-keyboard-response',
+      stimulus: "Thankyou! <p>If you press the spacebar and download the file it would be great if you could send it to me :)!",
+      data: {test_part: "thanks"}
+    };
+    timeline.push(thanks); */
+
+
+
+  /* start the experiment */
+  //  jatos.onLoad(function(){
+  jsPsych.init({
+    preload_audio: all_songs,
+    //    on_finish: function() { /* Do I need on finish or on_close here? */
+    //      var resultJson = jsPsych.data.get().json();
+    //      jatos.submitResultData(resultJson, jatos.startNextComponent);
+    //    },
+    timeline: timeline,
+    use_webaudio: false,
+  });
+  //});
+</script>
+
+</html>
