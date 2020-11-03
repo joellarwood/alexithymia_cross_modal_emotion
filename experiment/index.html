@@ -71,8 +71,6 @@
     show_clickable_nav: true
   }
 
-  timeline.push(instructions)
-
 
   /* define audio */
   var all_songs = [
@@ -92,19 +90,10 @@
     "audio/12_Skinny_Love.mp3"
   ]
 
-  /* define welcome message trial */
-  var welcome = {
-    type: "html-keyboard-response",
-    stimulus: "Welcome to the experiment. Press any key to begin.",
-    data: {
-      test_part: "welcome"
-    }
-  };
-  timeline.push(welcome);
 
   /* Experiment instructions */
 
-  var trial_instructions = {
+  var music_instructions = {
     type: "html-keyboard-response",
     stimulus: "<p>In this study you will hear a short musical clip and then make some ratings about the emotion it expresses or conveys</p>" +
       "<p>If the emotion in the two songs match the press the left arrow key (<-)</p>" +
@@ -116,7 +105,6 @@
       test_part: "instruction"
     }
   };
-  timeline.push(trial_instructions);
 
   /* Create music match task */
 
@@ -178,8 +166,10 @@
       condition: jsPsych.timelineVariable('condition')
     }
   }
-  timeline.push(music_music);
 
+  var music_block = {
+    timeline: [music_instructions, music_music]
+  }
 
   /*  var thanks = {
       type: 'html-keyboard-response',
@@ -198,7 +188,7 @@
     //      var resultJson = jsPsych.data.get().json();
     //      jatos.submitResultData(resultJson, jatos.startNextComponent);
     //    },
-    timeline: timeline,
+    timeline: [instructions, music_block],
     use_webaudio: false,
   });
   //});
