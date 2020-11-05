@@ -101,22 +101,29 @@
     "BF08SAS.JPG"
   ]
 
+  // define durations 
+  stimulus_duration = 1000
+  trial_duration = 2500
+  isi_duration = 200
+  iti_duration = 1500
 
-// define times 
-cue_duration = 1000
-iti_duration = 1500
-isi_duration = 200
-stimulus_duration = 1000
-target_duration = 2500
+  // create iti 
+  var iti = {
+    type: 'html-keyboard-response',
+    stimulus: '<div style="font-size:60px;">+</div>',
+    choices: jsPsych.NO_KEYS,
+    trial_duration: iti_duration,
+    data: {
+      test_part: "iti"
+    }
+  }
 
+  // create cue condition
 
-
-    // create cue condition
-
-    var cue = {
+  var cue = {
     type: "audio-keyboard-response",
     stimulus: jsPsych.timelineVariable('cue'),
-    trial_duration: cue_duration,
+    trial_duration: stimulus_duration,
     choices: jsPsych.NO_KEYS,
     data: {
       task: 'cue',
@@ -125,6 +132,17 @@ target_duration = 2500
     }
   }
 
+  // create isi 
+
+  var isi = {
+    type: 'html-keyboard-response',
+    stimulus: '<div style="font-size:60px;">+</div>',
+    choices: jsPsych.NO_KEYS,
+    trial_duration: isi_duration,
+    data: {
+      test_part: "isi"
+    }
+  }
 
 
 
@@ -132,7 +150,7 @@ target_duration = 2500
 
   var music_instructions = {
     type: "html-keyboard-response",
-    stimulus: "<p>In this study you will hear a short musical clip and then make some ratings about the emotion it expresses or conveys</p>" +
+    stimulus: "<p>In this study you will hear a short musical clip and then shortly after hear another musical clip</p>" +
       "<p>If the emotion in the two songs match the press the left arrow key (<-)</p>" +
       "<p>If the emotion in the two songs does not match then press the right arrow key (->)" +
       "<p>Please be as quick and accurate as possible</p>" +
@@ -148,37 +166,149 @@ target_duration = 2500
 
 
 
-  
+
 
 
   /* Create music match task */
 
   var music_target = {
     type: "audio-keyboard-response",
-    stimulus: jsPsych.timelineVariable('target'),
-    trial_duration: target_duration,
-    post_trial_gap: isi,
+    stimulus: jsPsych.timelineVariable('target_song'),
+    trial_duration: trial_duration,
     choices: ("37", "39"),
     data: {
       task: 'target',
-      target_song: jsPsych.timelineVariable('target'),
-      target_emotion: jsPsych.timelineVariable('target_emotion')
-    }
-  }
-
-  var music_music = {
-    timeline: [iti, song_cue, isi, song_target],
-    timeline_variables: music_trials,
-    randomize_order: true,
-    data: {
-      block: 'music',
+      target_stimulus: jsPsych.timelineVariable('target_song'),
+      target_emotion: jsPsych.timelineVariable('target_emotion'),
       condition: jsPsych.timelineVariable('condition')
     }
   }
 
-  var music_block = {
-    timeline: [music_instructions, music_music]
+  var music_trials = {
+    timeline: [iti, cue, isi, music_target],
+    timeline_variables: conditions,
+    randomize_order: true,
+    data: {
+      trial: 'true'
+    }
   }
+
+  var music_block = {
+    timeline: [music_instructions, music_trials],
+    data: {
+      block: 'music'
+    }
+  }
+
+
+
+  // create face match task 
+
+  // face instructions
+
+  var face_instructions = {
+    type: "html-keyboard-response",
+    stimulus: "<p>In this study you will hear a short musical clip and then shortly after view a face</p>" +
+      "<p>If the emotion in the song and the face match the press the left arrow key (<-)</p>" +
+      "<p>If the emotion in the song and the face do not match then press the right arrow key (->)" +
+      "<p>Please be as quick and accurate as possible</p>" +
+      "<p>Press the space bar to begin</p>",
+    choices: ['spacebar'],
+    data: {
+      test_part: "instruction"
+    }
+  };
+
+
+  var face_target = {
+    type: "image-keyboard-reponse",
+    stimulus: jsPsych.timelineVariable('target_face'),
+    stimulus_duration: stimulus_duration,
+    trial_duration: target_duration,
+    choices: ('37', '39'),
+    data: {
+      task: 'target',
+      target_stimulus: jsPsych.timelineVariable('target_face'),
+      target_emotion: jsPsych.timelineVariable('target_emotion'),
+      condition: jsPsych.timelineVariable('condition')
+    }
+  }
+
+
+  //define face trials 
+
+  var face_trials = {
+    timeline: [iti, cue, isi, face_target],
+    timeline_variables: conditions,
+    randomize_order: true,
+    data: {
+      trial: 'true'
+    }
+  }
+
+
+
+  // create face block
+
+var face_block = {
+  timeline: [face_instructions, face_trials],
+  data: {
+    block: 'face'
+  }
+}
+
+
+  // create word match task 
+
+  var word_instructions = {
+    type: "html-keyboard-response",
+    stimulus: "<p>In this study you will hear a short musical clip and then shortly be shown a word</p>" +
+      "<p>If the emotion in the song and the word match the press the left arrow key (<-)</p>" +
+      "<p>If the emotion in the song and the word do not match then press the right arrow key (->)" +
+      "<p>Please be as quick and accurate as possible</p>" +
+      "<p>Press the space bar to begin</p>",
+    choices: ['spacebar'],
+    data: {
+      test_part: "instruction"
+    }
+  };
+
+  var word_target = {
+    type: 'html-keyboard-response',
+    stimulus: function () {
+      return `<p style="font-size: 48px; font-family: monospace;">${jsPsych.timelineVariable('word_target', true).toUpperCase()}</p>`
+    },
+    stimulus_duration: stimulus_duration,
+    trial_duration: target_duration,
+    choices: ('37', '39'),
+    data: {
+      task: 'target',
+      target_stimulus: jsPsych.timelineVariable('target_word'),
+      target_emotion: jsPsych.timelineVariable('target_emotion'),
+      condition: jsPsych.timelineVariable('condition')
+    }
+  }
+
+  // define word trials 
+
+  var word_trials = {
+    timeline: [iti, cue, isi, word_target],
+    timeline_variables: conditions,
+    randomize_order: true,
+    data: {
+      trial: 'true'
+    }
+  }
+
+var word_block = {
+  timeline: [word_instructions, word_trials],
+  data: {
+    block: 'word'
+  }
+}
+
+
+
 
   /*  var thanks = {
       type: 'html-keyboard-response',
@@ -197,7 +327,7 @@ target_duration = 2500
     //      var resultJson = jsPsych.data.get().json();
     //      jatos.submitResultData(resultJson, jatos.startNextComponent);
     //    },
-    timeline: [instructions, music_block],
+    timeline: [instructions, music_block, word_block, face_block],
     use_webaudio: false,
   });
   //});
