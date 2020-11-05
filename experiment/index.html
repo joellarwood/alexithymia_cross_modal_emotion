@@ -59,9 +59,9 @@
     pages: [
       "Welcome to the Experiment. Please Click next to begin",
       "<p>In this study you will listen to a number of short musical clips. </p>",
-      "<p>You will then be presented with either anotehr song, an image, or a word<p>",
-      "Your task is to say whether the emotion in the song you first heard atches the emotion in the stimulus that follows<p>",
-      "<p>Finally you will rate how pleasant the feeling expressed by the song is and also how energetic/activating it was</p>",
+      "<p>There are four parts to this experiment, three which involve listening to music and one that is a short survey</p>",
+      "<p>In the first three parts of the experiment you will listen to a one second song and then be presented with either another song, an image, or a word<p>",
+      "Your task is to say whether the emotion in the song you first heard matches the emotion in the stimulus that follows<p>",
       "On the next page a song will play automatically. </p><p>Please adjust the volume so that the song is at a comfortable volume <br>",
       "Adjust the volume on your computer so that it is at a comfortable level. </p>" +
       "<p><audio autoplay src='audio/test_audio_short.mp3'></audio></p>" +
@@ -150,7 +150,7 @@
 
   var music_instructions = {
     type: "html-keyboard-response",
-    stimulus: "<p>In this study you will hear a short musical clip and then shortly after hear another musical clip</p>" +
+    stimulus: "<p>In this part of the experiment you will hear a short musical clip and then shortly after hear another musical clip</p>" +
       "<p>If the emotion in the two songs match the press the left arrow key (<-)</p>" +
       "<p>If the emotion in the two songs does not match then press the right arrow key (->)" +
       "<p>Please be as quick and accurate as possible</p>" +
@@ -208,7 +208,7 @@
 
   var face_instructions = {
     type: "html-keyboard-response",
-    stimulus: "<p>In this study you will hear a short musical clip and then shortly after view a face</p>" +
+    stimulus: "<p>In this part of the experiment you will hear a short musical clip and then shortly after view a face</p>" +
       "<p>If the emotion in the song and the face match the press the left arrow key (<-)</p>" +
       "<p>If the emotion in the song and the face do not match then press the right arrow key (->)" +
       "<p>Please be as quick and accurate as possible</p>" +
@@ -262,7 +262,7 @@ var face_block = {
 
   var word_instructions = {
     type: "html-keyboard-response",
-    stimulus: "<p>In this study you will hear a short musical clip and then shortly be shown a word</p>" +
+    stimulus: "<p>In this part of the experiment you will hear a short musical clip and then shortly be shown a word</p>" +
       "<p>If the emotion in the song and the word match the press the left arrow key (<-)</p>" +
       "<p>If the emotion in the song and the word do not match then press the right arrow key (->)" +
       "<p>Please be as quick and accurate as possible</p>" +
@@ -307,6 +307,11 @@ var word_block = {
   }
 }
 
+//randomise the trial blocks
+var randomise_blocks = {
+  timeline: jsPsych.randomization.shuffle([music_block, face_block, word_block]),
+  repetitions: 1
+}
 
 
 
@@ -327,7 +332,7 @@ var word_block = {
     //      var resultJson = jsPsych.data.get().json();
     //      jatos.submitResultData(resultJson, jatos.startNextComponent);
     //    },
-    timeline: [instructions, music_block, word_block, face_block],
+    timeline: [instructions, randomise_blocks],
     use_webaudio: false,
   });
   //});
