@@ -102,24 +102,21 @@
   ]
 
 
+// define times 
+cue_duration = 1000
+iti_duration = 1500
+isi_duration = 200
+stimulus_duration = 1000
+target_duration = 2500
 
-  // create iti 
-  var iti = {
-    type: 'html-keyboard-response',
-    stimulus: '<div style="font-size:60px;">+</div>',
-    choices: jsPsych.NO_KEYS,
-    trial_duration: 1500,
-    data: {
-      test_part: "iti"
-    }
-  }
+
 
     // create cue condition
 
     var cue = {
     type: "audio-keyboard-response",
     stimulus: jsPsych.timelineVariable('cue'),
-    trial_duration: prime_duration,
+    trial_duration: cue_duration,
     choices: jsPsych.NO_KEYS,
     data: {
       task: 'cue',
@@ -128,17 +125,6 @@
     }
   }
 
-  // create isi 
-
-  var isi = {
-    type: 'html-keyboard-response',
-    stimulus: '<div style="font-size:60px;">+</div>',
-    choices: jsPsych.NO_KEYS,
-    trial_duration: 200,
-    data: {
-      test_part: "isi"
-    }
-  }
 
 
 
@@ -167,39 +153,7 @@
 
   /* Create music match task */
 
-  var iti = {
-    type: 'html-keyboard-response',
-    stimulus: '<div style="font-size:60px;">+</div>',
-    choices: jsPsych.NO_KEYS,
-    trial_duration: 1000,
-    data: {
-      test_part: "iti"
-    }
-  }
-
-  var song_cue = {
-    type: "audio-keyboard-response",
-    stimulus: jsPsych.timelineVariable('cue'),
-    trial_duration: prime_duration,
-    choices: jsPsych.NO_KEYS,
-    data: {
-      task: 'cue',
-      cue_song: jsPsych.timelineVariable('cue'),
-      cue_emotion: jsPsych.timelineVariable('cue_emotion')
-    }
-  }
-
-  var isi = {
-    type: 'html-keyboard-response',
-    stimulus: '<div style="font-size:60px;">+</div>',
-    choices: jsPsych.NO_KEYS,
-    trial_duration: 200,
-    data: {
-      test_part: "isi"
-    }
-  }
-
-  var song_target = {
+  var music_target = {
     type: "audio-keyboard-response",
     stimulus: jsPsych.timelineVariable('target'),
     trial_duration: target_duration,
