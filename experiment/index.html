@@ -11,7 +11,7 @@
   <script src="jspsych-6.1.0/plugins/jspsych-survey-multi-choice.js"></script>
   <script src="jspsych-6.1.0/plugins/jspsych-instructions.js"></script>
   <script src="jspsych-6.1.0/plugins/jspsych-external-html.js"></script>
-  <script src="music_trials.js"></script>
+  <script src="conditions.js"></script>
   <link href="jspsych-6.1.0/css/jspsych.css" rel="stylesheet" type="text/css">
   <!--  <script src="/assets/javascripts/jatos.js"></script> -->
   </link>
@@ -90,8 +90,59 @@
     "audio/12_Skinny_Love.mp3"
   ]
 
+  /* define images */
+  var all_images = [
+    "BF05ANS.JPG",
+    "BF34ANS.JPG",
+    "BF34HAS.JPG",
+    "BF34SAS.JPG",
+    "BM08ANS.JPG",
+    "BM08HAS.JPG",
+    "BF08SAS.JPG"
+  ]
 
-  /* Experiment instructions */
+
+
+  // create iti 
+  var iti = {
+    type: 'html-keyboard-response',
+    stimulus: '<div style="font-size:60px;">+</div>',
+    choices: jsPsych.NO_KEYS,
+    trial_duration: 1500,
+    data: {
+      test_part: "iti"
+    }
+  }
+
+    // create cue condition
+
+    var cue = {
+    type: "audio-keyboard-response",
+    stimulus: jsPsych.timelineVariable('cue'),
+    trial_duration: prime_duration,
+    choices: jsPsych.NO_KEYS,
+    data: {
+      task: 'cue',
+      cue_song: jsPsych.timelineVariable('cue'),
+      cue_emotion: jsPsych.timelineVariable('cue_emotion')
+    }
+  }
+
+  // create isi 
+
+  var isi = {
+    type: 'html-keyboard-response',
+    stimulus: '<div style="font-size:60px;">+</div>',
+    choices: jsPsych.NO_KEYS,
+    trial_duration: 200,
+    data: {
+      test_part: "isi"
+    }
+  }
+
+
+
+  /* music block instructions */
 
   var music_instructions = {
     type: "html-keyboard-response",
@@ -106,11 +157,15 @@
     }
   };
 
-  /* Create music match task */
 
-  /* Experiment parameters */
-  var prime_duration = 1000;
-  var target_duration = 2000;
+  // music practice trial
+
+
+
+  
+
+
+  /* Create music match task */
 
   var iti = {
     type: 'html-keyboard-response',
