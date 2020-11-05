@@ -103,7 +103,7 @@
 
   // define durations 
   stimulus_duration = 1000
-  trial_duration = 2500
+  target_duration = 2500
   isi_duration = 200
   iti_duration = 1500
 
@@ -174,7 +174,7 @@
   var music_target = {
     type: "audio-keyboard-response",
     stimulus: jsPsych.timelineVariable('target_song'),
-    trial_duration: trial_duration,
+    trial_duration: target_duration,
     choices: ("37", "39"),
     data: {
       task: 'target',
@@ -276,7 +276,7 @@ var face_block = {
   var word_target = {
     type: 'html-keyboard-response',
     stimulus: function () {
-      return `<p style="font-size: 48px; font-family: monospace;">${jsPsych.timelineVariable('word_target', true).toUpperCase()}</p>`
+      return `<p style="font-size: 48px; font-family: monospace;">${jsPsych.timelineVariable('target_word', true).toUpperCase()}</p>`
     },
     stimulus_duration: stimulus_duration,
     trial_duration: target_duration,
