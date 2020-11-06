@@ -5,7 +5,7 @@ var conditions = [
     "target_emotion": "happy",
     "target_song": "audio/5_Get_Lucky.mp3",
     "target_word": "happy",
-    "target_face": "img/BF34HAS.jpg",
+    "target_face": "img/BF34HAS.JPG",
     "condition": "congruent"
   },
   {
@@ -14,7 +14,7 @@ var conditions = [
     "target_emotion": "happy",
     "target_song": "audio/16_Restless.mp3",
     "target_word": "happy",
-    "target_face": "img/BM08HAS.jpg",
+    "target_face": "img/BM08HAS.JPG",
     "condition": "congruent"
   },
   {
@@ -23,7 +23,7 @@ var conditions = [
     "target_emotion": "sad",
     "target_song": "audio/7_Here_Today.mp3",
     "target_word": "sad",
-    "target_face": "img/BF34SAS.jpg",
+    "target_face": "img/BF34SAS.JPG",
     "condition": "incongruent"
   },
   {
@@ -32,7 +32,7 @@ var conditions = [
     "target_emotion": "sad",
     "target_song": "audio/2_Inside.mp3",
     "target_word": "sad",
-    "target_face": "img/BF08SAS.jpg",
+    "target_face": "img/BM08SAS.JPG",
     "condition": "incongruent"
   },
   {
@@ -41,7 +41,7 @@ var conditions = [
     "target_emotion": "angry",
     "target_song": "audio/13_Motown_Junk.mp3",
     "target_word": "angry",
-    "target_face": "img/BF34ANS.jpg",
+    "target_face": "img/BF34ANS.JPG",
     "condition": "incongruent"
   },
   {
@@ -50,7 +50,7 @@ var conditions = [
     "target_emotion": "angry",
     "target_song": "audio/2_Incomplete.mp3",
     "target_word": "angry",
-    "target_face": "img/BM08ANS.jpg",
+    "target_face": "img/BM08ANS.JPG",
     "condition": "incongruent"
   },
   {
@@ -59,7 +59,7 @@ var conditions = [
     "target_emotion": "happy",
     "target_song": "audio/5_Get_Lucky.mp3",
     "target_word": "happy",
-    "target_face": "img/BF34HAS.jpg",
+    "target_face": "img/BF34HAS.JPG",
     "condition": "congruent"
   },
   {
@@ -68,7 +68,7 @@ var conditions = [
     "target_emotion": "happy",
     "target_song": "audio/16_Restless.mp3",
     "target_word": "happy",
-    "target_face": "img/BM08HAS.jpg",
+    "target_face": "img/BM08HAS.JPG",
     "condition": "congruent"
   },
   {
@@ -77,7 +77,7 @@ var conditions = [
     "target_emotion": "sad",
     "target_song": "audio/7_Here_Today.mp3",
     "target_word": "sad",
-    "target_face": "img/BF34SAS.jpg",
+    "target_face": "img/BF34SAS.JPG",
     "condition": "incongruent"
   },
   {
@@ -86,7 +86,7 @@ var conditions = [
     "target_emotion": "sad",
     "target_song": "audio/2_Inside.mp3",
     "target_word": "sad",
-    "target_face": "img/BF08SAS.jpg",
+    "target_face": "img/BM08SAS.JPG",
     "condition": "incongruent"
   },
   {
@@ -95,7 +95,7 @@ var conditions = [
     "target_emotion": "angry",
     "target_song": "audio/13_Motown_Junk.mp3",
     "target_word": "angry",
-    "target_face": "img/BF34ANS.jpg",
+    "target_face": "img/BF34ANS.JPG",
     "condition": "incongruent"
   },
   {
@@ -104,7 +104,7 @@ var conditions = [
     "target_emotion": "angry",
     "target_song": "audio/2_Incomplete.mp3",
     "target_word": "angry",
-    "target_face": "img/BM08ANS.jpg",
+    "target_face": "img/BM08ANS.JPG",
     "condition": "incongruent"
   },
   {
@@ -113,7 +113,7 @@ var conditions = [
     "target_emotion": "happy",
     "target_song": "audio/5_Get_Lucky.mp3",
     "target_word": "happy",
-    "target_face": "img/BF34HAS.jpg",
+    "target_face": "img/BF34HAS.JPG",
     "condition": "congruent"
   },
   {
@@ -122,7 +122,7 @@ var conditions = [
     "target_emotion": "happy",
     "target_song": "audio/16_Restless.mp3",
     "target_word": "happy",
-    "target_face": "img/BM08HAS.jpg",
+    "target_face": "img/BM08HAS.JPG",
     "condition": "congruent"
   },
   {
@@ -131,7 +131,7 @@ var conditions = [
     "target_emotion": "sad",
     "target_song": "audio/7_Here_Today.mp3",
     "target_word": "sad",
-    "target_face": "img/BF34SAS.jpg",
+    "target_face": "img/BF34SAS.JPG",
     "condition": "incongruent"
   },
   {
@@ -140,7 +140,7 @@ var conditions = [
     "target_emotion": "sad",
     "target_song": "audio/2_Inside.mp3",
     "target_word": "sad",
-    "target_face": "img/BF08SAS.jpg",
+    "target_face": "img/BM08SAS.JPG",
     "condition": "incongruent"
   },
   {
@@ -149,7 +149,7 @@ var conditions = [
     "target_emotion": "angry",
     "target_song": "audio/13_Motown_Junk.mp3",
     "target_word": "angry",
-    "target_face": "img/BF34ANS.jpg",
+    "target_face": "img/BF34ANS.JPG",
     "condition": "incongruent"
   },
   {
@@ -158,7 +158,7 @@ var conditions = [
     "target_emotion": "angry",
     "target_song": "audio/2_Incomplete.mp3",
     "target_word": "angry",
-    "target_face": "img/BM08ANS.jpg",
+    "target_face": "img/BM08ANS.JPG",
     "condition": "incongruent"
   },
   {
@@ -167,7 +167,7 @@ var conditions = [
     "target_emotion": "happy",
     "target_song": "audio/5_Get_Lucky.mp3",
     "target_word": "happy",
-    "target_face": "img/BF34HAS.jpg",
+    "target_face": "img/BF34HAS.JPG",
     "condition": "congruent"
   },
   {
@@ -176,7 +176,7 @@ var conditions = [
     "target_emotion": "happy",
     "target_song": "audio/16_Restless.mp3",
     "target_word": "happy",
-    "target_face": "img/BM08HAS.jpg",
+    "target_face": "img/BM08HAS.JPG",
     "condition": "congruent"
   },
   {
@@ -185,7 +185,7 @@ var conditions = [
     "target_emotion": "sad",
     "target_song": "audio/7_Here_Today.mp3",
     "target_word": "sad",
-    "target_face": "img/BF34SAS.jpg",
+    "target_face": "img/BF34SAS.JPG",
     "condition": "incongruent"
   },
   {
@@ -194,7 +194,7 @@ var conditions = [
     "target_emotion": "sad",
     "target_song": "audio/2_Inside.mp3",
     "target_word": "sad",
-    "target_face": "img/BF08SAS.jpg",
+    "target_face": "img/BM08SAS.JPG",
     "condition": "incongruent"
   },
   {
@@ -203,7 +203,7 @@ var conditions = [
     "target_emotion": "angry",
     "target_song": "audio/13_Motown_Junk.mp3",
     "target_word": "angry",
-    "target_face": "img/BF34ANS.jpg",
+    "target_face": "img/BF34ANS.JPG",
     "condition": "incongruent"
   },
   {
@@ -212,7 +212,7 @@ var conditions = [
     "target_emotion": "angry",
     "target_song": "audio/2_Incomplete.mp3",
     "target_word": "angry",
-    "target_face": "img/BM08ANS.jpg",
+    "target_face": "img/BM08ANS.JPG",
     "condition": "incongruent"
   },
   {
@@ -221,7 +221,7 @@ var conditions = [
     "target_emotion": "happy",
     "target_song": "audio/5_Get_Lucky.mp3",
     "target_word": "happy",
-    "target_face": "img/BF34HAS.jpg",
+    "target_face": "img/BF34HAS.JPG",
     "condition": "incongruent"
   },
   {
@@ -230,7 +230,7 @@ var conditions = [
     "target_emotion": "happy",
     "target_song": "audio/16_Restless.mp3",
     "target_word": "happy",
-    "target_face": "img/BM08HAS.jpg",
+    "target_face": "img/BM08HAS.JPG",
     "condition": "incongruent"
   },
   {
@@ -239,7 +239,7 @@ var conditions = [
     "target_emotion": "sad",
     "target_song": "audio/7_Here_Today.mp3",
     "target_word": "sad",
-    "target_face": "img/BF34SAS.jpg",
+    "target_face": "img/BF34SAS.JPG",
     "condition": "congruent"
   },
   {
@@ -248,7 +248,7 @@ var conditions = [
     "target_emotion": "sad",
     "target_song": "audio/2_Inside.mp3",
     "target_word": "sad",
-    "target_face": "img/BF08SAS.jpg",
+    "target_face": "img/BM08SAS.JPG",
     "condition": "congruent"
   },
   {
@@ -257,7 +257,7 @@ var conditions = [
     "target_emotion": "angry",
     "target_song": "audio/13_Motown_Junk.mp3",
     "target_word": "angry",
-    "target_face": "img/BF34ANS.jpg",
+    "target_face": "img/BF34ANS.JPG",
     "condition": "incongruent"
   },
   {
@@ -266,7 +266,7 @@ var conditions = [
     "target_emotion": "angry",
     "target_song": "audio/2_Incomplete.mp3",
     "target_word": "angry",
-    "target_face": "img/BM08ANS.jpg",
+    "target_face": "img/BM08ANS.JPG",
     "condition": "incongruent"
   },
   {
@@ -275,7 +275,7 @@ var conditions = [
     "target_emotion": "happy",
     "target_song": "audio/5_Get_Lucky.mp3",
     "target_word": "happy",
-    "target_face": "img/BF34HAS.jpg",
+    "target_face": "img/BF34HAS.JPG",
     "condition": "incongruent"
   },
   {
@@ -284,7 +284,7 @@ var conditions = [
     "target_emotion": "happy",
     "target_song": "audio/16_Restless.mp3",
     "target_word": "happy",
-    "target_face": "img/BM08HAS.jpg",
+    "target_face": "img/BM08HAS.JPG",
     "condition": "incongruent"
   },
   {
@@ -293,7 +293,7 @@ var conditions = [
     "target_emotion": "sad",
     "target_song": "audio/7_Here_Today.mp3",
     "target_word": "sad",
-    "target_face": "img/BF34SAS.jpg",
+    "target_face": "img/BF34SAS.JPG",
     "condition": "congruent"
   },
   {
@@ -302,7 +302,7 @@ var conditions = [
     "target_emotion": "sad",
     "target_song": "audio/2_Inside.mp3",
     "target_word": "sad",
-    "target_face": "img/BF08SAS.jpg",
+    "target_face": "img/BM08SAS.JPG",
     "condition": "congruent"
   },
   {
@@ -311,7 +311,7 @@ var conditions = [
     "target_emotion": "angry",
     "target_song": "audio/13_Motown_Junk.mp3",
     "target_word": "angry",
-    "target_face": "img/BF34ANS.jpg",
+    "target_face": "img/BF34ANS.JPG",
     "condition": "incongruent"
   },
   {
@@ -320,7 +320,7 @@ var conditions = [
     "target_emotion": "angry",
     "target_song": "audio/2_Incomplete.mp3",
     "target_word": "angry",
-    "target_face": "img/BM08ANS.jpg",
+    "target_face": "img/BM08ANS.JPG",
     "condition": "incongruent"
   },
   {
@@ -329,7 +329,7 @@ var conditions = [
     "target_emotion": "happy",
     "target_song": "audio/5_Get_Lucky.mp3",
     "target_word": "happy",
-    "target_face": "img/BF34HAS.jpg",
+    "target_face": "img/BF34HAS.JPG",
     "condition": "incongruent"
   },
   {
@@ -338,7 +338,7 @@ var conditions = [
     "target_emotion": "happy",
     "target_song": "audio/16_Restless.mp3",
     "target_word": "happy",
-    "target_face": "img/BM08HAS.jpg",
+    "target_face": "img/BM08HAS.JPG",
     "condition": "incongruent"
   },
   {
@@ -347,7 +347,7 @@ var conditions = [
     "target_emotion": "sad",
     "target_song": "audio/7_Here_Today.mp3",
     "target_word": "sad",
-    "target_face": "img/BF34SAS.jpg",
+    "target_face": "img/BF34SAS.JPG",
     "condition": "congruent"
   },
   {
@@ -356,7 +356,7 @@ var conditions = [
     "target_emotion": "sad",
     "target_song": "audio/2_Inside.mp3",
     "target_word": "sad",
-    "target_face": "img/BF08SAS.jpg",
+    "target_face": "img/BM08SAS.JPG",
     "condition": "congruent"
   },
   {
@@ -365,7 +365,7 @@ var conditions = [
     "target_emotion": "angry",
     "target_song": "audio/13_Motown_Junk.mp3",
     "target_word": "angry",
-    "target_face": "img/BF34ANS.jpg",
+    "target_face": "img/BF34ANS.JPG",
     "condition": "incongruent"
   },
   {
@@ -374,7 +374,7 @@ var conditions = [
     "target_emotion": "angry",
     "target_song": "audio/2_Incomplete.mp3",
     "target_word": "angry",
-    "target_face": "img/BM08ANS.jpg",
+    "target_face": "img/BM08ANS.JPG",
     "condition": "incongruent"
   },
   {
@@ -383,7 +383,7 @@ var conditions = [
     "target_emotion": "happy",
     "target_song": "audio/5_Get_Lucky.mp3",
     "target_word": "happy",
-    "target_face": "img/BF34HAS.jpg",
+    "target_face": "img/BF34HAS.JPG",
     "condition": "incongruent"
   },
   {
@@ -392,7 +392,7 @@ var conditions = [
     "target_emotion": "happy",
     "target_song": "audio/16_Restless.mp3",
     "target_word": "happy",
-    "target_face": "img/BM08HAS.jpg",
+    "target_face": "img/BM08HAS.JPG",
     "condition": "incongruent"
   },
   {
@@ -401,7 +401,7 @@ var conditions = [
     "target_emotion": "sad",
     "target_song": "audio/7_Here_Today.mp3",
     "target_word": "sad",
-    "target_face": "img/BF34SAS.jpg",
+    "target_face": "img/BF34SAS.JPG",
     "condition": "congruent"
   },
   {
@@ -410,7 +410,7 @@ var conditions = [
     "target_emotion": "sad",
     "target_song": "audio/2_Inside.mp3",
     "target_word": "sad",
-    "target_face": "img/BF08SAS.jpg",
+    "target_face": "img/BM08SAS.JPG",
     "condition": "congruent"
   },
   {
@@ -419,7 +419,7 @@ var conditions = [
     "target_emotion": "angry",
     "target_song": "audio/13_Motown_Junk.mp3",
     "target_word": "angry",
-    "target_face": "img/BF34ANS.jpg",
+    "target_face": "img/BF34ANS.JPG",
     "condition": "incongruent"
   },
   {
@@ -428,7 +428,7 @@ var conditions = [
     "target_emotion": "angry",
     "target_song": "audio/2_Incomplete.mp3",
     "target_word": "angry",
-    "target_face": "img/BM08ANS.jpg",
+    "target_face": "img/BM08ANS.JPG",
     "condition": "incongruent"
   }
 ]

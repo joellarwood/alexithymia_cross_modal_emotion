@@ -1,91 +1,105 @@
-var tas_20 = [
+var tas_items = [
   {
-    "item": "I am often confused about what emotion I am feeling",
-    "tas_no": "tas_1"
+    prompt: "I am often confused about what emotion I am feeling",
+    name: "tas_1",
+    labels: tas_scale
   },
   {
-    "item": "It is difficult for me to find the right words for my feelings",
-    "tas_no": "tas_2"
+    prompt: "It is difficult for me to find the right words for my feelings",
+    name: "tas_2",
+    labels: tas_scale
   },
   {
-    "item": "I have physical sensations that even doctors don’t understand",
-    "tas_no": "tas_3"
+    prompt: "I have physical sensations that even doctors don’t understand",
+    name: "tas_3",    
+    labels: tas_scale
   },
   {
-    "item": "I am able to describe my feelings easily",
-    "tas_no": "tas_4"
+    prompt: "I am able to describe my feelings easily",
+    name: "tas_4",
+    labels: tas_scale
   },
   {
-    "item": "I prefer to analyse problems rather than just describe them",
-    "tas_no": "tas_5"
+    prompt: "I prefer to analyse problems rather than just describe them",
+    name: "tas_5",
+    labels: tas_scale
   },
   {
-    "item": "When I am upset, I don’t know if I am sad, frightened, or angry",
-    "tas_no": "tas_6"
+    prompt: "When I am upset, I don’t know if I am sad, frightened, or angry",
+    name: "tas_6",
+    labels: tas_scale
   },
   {
-    "item": "I am often puzzled by sensations in my body",
-    "tas_no": "tas_7"
+    prompt: "I am often puzzled by sensations in my body",
+    name: "tas_7",
+    labels: tas_scale
   },
   {
-    "item": "I prefer to just let things happen than to understand why they turned out that way",
-    "tas_no": "tas_8"
+    prompt: "I prefer to just let things happen than to understand why they turned out that way",
+    name: "tas_8",
+    labels: tas_scale
   },
   {
-    "item": "I have feelings that I can’t quite identify",
-    "tas_no": "tas_9"
+    prompt: "I have feelings that I can’t quite identify",
+    name: "tas_9",
+    labels: tas_scale
   },
   {
-    "item": "Being in touch with emotions is essential",
-    "tas_no": "tas_10"
+    prompt: "Being in touch with emotions is essential",
+    name: "tas_10",
+    labels: tas_scale
   },
   {
-    "item": "I find it hard to describe how I feel about people",
-    "tas_no": "tas_11"
+    prompt: "I find it hard to describe how I feel about people",
+    name: "tas_11",
+    labels: tas_scale
   },
   {
-    "item": "People tell me to describe my feelings more",
-    "tas_no": "tas_12"
+    prompt: "People tell me to describe my feelings more",
+    name: "tas_12",
+    labels: tas_scale
   },
   {
-    "item": "I don’t know what’s going on inside me",
-    "tas_no": "tas_13"
+    prompt: "I don’t know what’s going on inside me",
+    name: "tas_13",
+    labels: tas_scale
   },
   {
-    "item": "I often don’t know why I am angry",
-    "tas_no": "tas_14"
+    prompt: "I often don’t know why I am angry",
+    name: "tas_14",
+    labels: tas_scale
   },
   {
-    "item": "I prefer talking to people about their daily activities rather than their feelings",
-    "tas_no": "tas_15"
+    prompt: "I prefer talking to people about their daily activities rather than their feelings",
+    name: "tas_15",
+    labels: tas_scale
   },
   {
-    "item": "I prefer to watch ‘light’ entertainment shows rather than psychological dramas",
-    "tas_no": "tas_16"
+    prompt: "I prefer to watch ‘light’ entertainment shows rather than psychological dramas",
+    name: "tas_16",
+    labels: tas_scale
   },
   {
-    "item": "It is difficult for me to reveal my innermost feelings, even to someone close",
-    "tas_no": "tas_17"
+    prompt: "It is difficult for me to reveal my innermost feelings, even to someone close",
+    name: "tas_17",
+    labels: tas_scale
   },
   {
-    "item": "I can feel close to someone, even in moments of silence",
-    "tas_no": "tas_18"
+    prompt: "I can feel close to someone, even in moments of silence",
+    name: "tas_18",
+    labels: tas_scale
   },
   {
-    "item": "I find examination of my feelings useful in solving personal problems",
-    "tas_no": "tas_19"
+    prompt: "I find examination of my feelings useful in solving personal problems",
+    name: "tas_19",
+    labels: tas_scale
   },
   {
-    "item": "Looking for hidden meanings in movies or plays distracts from their enjoyment",
-    "tas_no": "tas_20"
+    prompt: "Looking for hidden meanings in movies or plays distracts from their enjoyment",
+    name: "tas_20",
+    labels: tas_scale
   }
 ]
 
 
-var tas_scale = [
-  "Strongly Disagree", 
-  "Disagree", 
-  "Neutral", 
-  "Agree", 
-  "Strongly Agree"
-]
+
