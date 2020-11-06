@@ -61,7 +61,7 @@
       "Welcome to the Experiment. Please Click next to begin",
       "<p>In this study you will listen to a number of short musical clips. </p>",
       "<p>There are four parts to this experiment, three which involve listening to music and one that is a short survey</p>",
-      "<p>In the first three parts of the experiment you will listen to a one second song and then be presented with either another song, an image, or a word<p>",
+      "<p>In the first three parts of the experiment you will listen to a one second clip of music and then be presented with either another song, an image, or a word<p>",
       "Your task is to say whether the emotion in the song you first heard matches the emotion in the stimulus that follows<p>",
       "On the next page a song will play automatically. </p><p>Please adjust the volume so that the song is at a comfortable volume <br>",
       "Adjust the volume on your computer so that it is at a comfortable level. </p>" +
@@ -166,7 +166,7 @@
         return "<p>Correct! The emotions do match!</p><br> Press the spacebar to continue to the experimental trials";
       } else {
         return "<p>That was incorrect.<br><br>" +
-          "<strong><br> When the emotion is the same same press the left arrow (&larr;) <br><br> when the emotions are different press the right arrow (&rarr;)</p></strong>" +
+          "<strong><br> When the emotion is the same press the left arrow (&larr;) <br><br> when the emotions are different press the right arrow (&rarr;)</p></strong>" +
           "Press the spacebar to continue to the experimnetal trials"
       }
     },
@@ -284,7 +284,7 @@
       task: 'face_practice_target'
     },
     on_finish: function (data) {
-      if (data.key_press == 37) { // 70 is the numeric code for f
+      if (data.key_press == 37) { // 37 is the numeric code for <-
         data.correct = true; // can add property correct by modify data object directly
       } else {
         data.correct = false;
