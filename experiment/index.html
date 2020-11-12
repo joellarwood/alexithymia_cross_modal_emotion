@@ -11,9 +11,9 @@
   <script src="jspsych-6.1.0/plugins/jspsych-instructions.js"></script>
   <script src="jspsych-6.1.0/plugins/jspsych-external-html.js"></script>
   <script src="jspsych-6.1.0/plugins/jspsych-image-keyboard-response.js"></script>
+  <script src="jspsych-6.1.0/plugins/jspsych-survey-text.js"></script>
   <script src="conditions.js"></script>
-  <script src="tas_20.js"></script>
-  <link href="jspsych-6.1.0/css/jspsych.css" rel="stylesheet" type="text/css">
+  <link href="jspsych-6.1.0/css/jspsych.css" rel="stylesheet" type="text/css"> 
   <!--  <script src="/assets/javascripts/jatos.js"></script> -->
   </link>
 </head>
@@ -559,14 +559,161 @@
   }
 
 
+  //Gold MSI items from https://github.com/davidjohnbaker1/goldMSI_survey_jspsych/blob/master/gold_msi5.js
 
-  /*  var thanks = {
+  var demographic_intro = {
+    type: 'instructions',
+    pages: [
+      "<p>Before you finish you will be asked a few questions about your experience with music along with some basic demographic infomation </p>"
+    ],
+    show_clickable_nav: true
+  }
+
+  /// Create Seven point Likert Scale For First Four Pages
+
+  var likert_7 = ["Strongly Disagree", "Disagree", "Somewhat Disagree", "Neutral", "Somewhat Agree", "Agree",
+    "Strongly Agree"
+  ];
+
+  /// Create Likert Level Scale for Musical Training Questions
+
+  var scale_32 = ["0", "1", "2", "3", "4-5", "6-9", "10 or more"];
+  var scale_33 = ["0", ".5", "1", "1.5", "2", "3-4", "5 or more"];
+  var scale_37 = ["0", "1", "2", "3", "4", "5", "6"];
+
+
+  var msi_ratings = {
+    type: 'survey-likert',
+    questions: [{
+        prompt: "I spend a lot of my free time doing music related activites.",
+        name: 'ae_01',
+        labels: likert_7
+      },
+      {
+        prompt: "I often read or search the internet for things related to music.",
+        labels: likert_7,
+        name: 'ae_05'
+      },
+      {
+        prompt: "Music is kind of like an addiction for me- I can't live without it.",
+        labels: likert_7,
+        name: "ae_07"
+      },
+      {
+        prompt: "I sometimes choose music that can trigger shivers down my spine.",
+        labels: likert_7,
+        name: "em_01"
+      },
+      {
+        prompt: "Pieces of music rarely evoke emotions for me.",
+        labels: likert_7,
+        name: "em_02"
+      },
+      {
+        prompt: "I often pick certain music to motivate or excite me.",
+        labels: likert_7,
+        name: "em_03"
+      },
+      {
+        prompt: "I am able to identify what is special about a given musical piece.",
+        labels: likert_7,
+        name: "em_04"
+      },
+      {
+        prompt: "I am able to talk about the emotions that a piece of music evokes for me.",
+        labels: likert_7,
+        name: "em_05"
+      },
+       {
+        prompt: "Music can evoke my memories of past people and places.",
+        labels: likert_7,
+        name: "em_06"
+      },
+      {
+        prompt: "I find it difficult to spot mistakes in a performance of a song even if I know the tune.",
+        labels: likert_7,
+        name: "pa_03"
+      },
+      {
+        prompt: "I can tell when people sing or play out of time with the beat.",
+        labels: likert_7,
+        name: "pa_06"
+      },
+      {
+        prompt: "I can tell when people sing or play out of tune.",
+        labels: likert_7,
+        name: "pa_07"
+      },
+      {
+        prompt: "I engaged in regular, daily practice of a musical instrument (including voice) for __ years.",
+        labels: scale_32,
+        name: "mt_01"
+      },
+      {
+        prompt: "At the peak of my interest, I practiced __ hours per day on my primary instrument.",
+        labels: scale_33,
+        name: "mt_02"
+      },
+      {
+        prompt: "I can play __ musical instruments.",
+        labels: scale_37,
+        name: "mt_06"
+      },
+    ],
+    data: {
+      block: 'msi'
+    }
+  }
+
+  var age_block = {
+    type: 'survey-text',
+    questions: [{
+      prompt: "What is your age in years?",
+      value: "Years"
+    }],
+  };
+
+
+  var gender_block = {
+    type: 'survey-text',
+    questions: [{
+      prompt: "What gender do you identify with?"
+    }],
+  };
+
+
+  var nationality_block = {
+    type: 'survey-text',
+    questions: [{
+      prompt: "What is your nationality?"
+    }],
+  };
+
+  var formative_block = {
+    type: 'survey-text',
+    questions: [{
+      prompt: "Which country did you spend the formative years of your childhood and youth?"
+    }],
+  };
+
+  var currentcountry_block = {
+  type: 'survey-text',
+  questions: [{
+    prompt: "Which country are you currently a resident of?"
+  }],
+  };
+
+  var demographics = {
+    timeline: [age_block, gender_block, nationality_block, formative_block, currentcountry_block],
+    data: {
+      block: 'demographics'
+    }
+  }
+
+  var thanks = {
       type: 'html-keyboard-response',
-      stimulus: "Thankyou! <p>If you press the spacebar and download the file it would be great if you could send it to me :)!",
-      data: {test_part: "thanks"}
+      stimulus: "Thankyou for your participation! Press any key to be redirect back to prolific",
     };
-    timeline.push(thanks); */
-
 
 
   /* start the experiment */
@@ -578,8 +725,11 @@
     //      var resultJson = jsPsych.data.get().json();
     //      jatos.submitResultData(resultJson, jatos.startNextComponent);
     //    },
-    timeline: [instructions, randomise_blocks, tas_20],
-    use_webaudio: false,
+    on_finish: function() {
+			jsPsych.data.get().localSave('json', subject_id + '.json');	
+    },
+    timeline: [instructions, randomise_blocks, tas_20, demographic_intro, msi_ratings, demographics, thanks],
+    use_webaudio: false
   });
   //});
 </script>
