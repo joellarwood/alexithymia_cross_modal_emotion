@@ -1,0 +1,80 @@
+---
+title: "Pre Launch Data"
+author: "Joel Larwood"
+date: "13/11/2020"
+output: html_document
+editor_options: 
+  chunk_output_type: console
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r, message = 'hide}
+library(tidyverse)
+library(jsonlite)
+```
+
+Here I process data from one person who completed the full study
+
+```{r}
+single_dat <- here::here(
+  "data",
+  "raw",
+  "pre_launch",
+  "lr3mz0q1ezzvemg.json"
+) %>% 
+  jsonlite::fromJSON() %>% 
+  select(
+    internal_node_id,
+    rt,
+    task,
+    block,
+    correct,
+    cue_song, 
+    target_stimulus,
+    target_emotion,
+    condition, 
+    key_press
+  ) %>% 
+  filter(
+    task %in% c("cue", "target"),
+    !is.na(rt)
+  ) %>% 
+  tidyr::separate(
+    col = internal_node_id, 
+    into = c("node_1", "node_2", "node_3", "node_4", "node_5"),
+    sep = "-",
+  ) %>% 
+  tidyr::separate(
+    col = node_5,
+    into = c("tmp", "block_rep")
+  ) %>% 
+  mutate(
+    across(
+      where(is.character),
+      as.factor),
+    correct_repsonse = case_when(
+      condition == "congruent" & key_press == 37 | condition == "incongruent" & key_press == 39 ~ "correct",
+      condition == "congruent" & key_press == 39 | condition == "incongruent" & key_press == 37 ~ "incorrect"
+    )
+    )
+
+```
+
+```{r}
+
+single_dat %>% 
+  ggplot(
+    aes(
+      x = block,
+      y = rt,
+      color = correct_repsonse,
+      fill = correct_repsonse
+    )
+  ) + 
+  geom_point()
+```
+
+

@@ -29,7 +29,7 @@
     subject: subject_id
   });
 
-  /*
+
   var check_consent = function (elem) {
     if (document.getElementById('consent_checkbox').checked) {
       return true;
@@ -49,28 +49,7 @@
     cont_btn: "start",
     check_fn: check_consent
   };
-  */
 
-  //timeline.push(consent)
-
-  // declare instructions
-
-  var instructions = {
-    type: 'instructions',
-    pages: [
-      "Welcome to the Experiment. Please Click next to begin",
-      "<p>In this study you will listen to a number of short musical clips. </p>",
-      "<p>There are four parts to this experiment, three which involve listening to music and one that is a short survey</p>",
-      "<p>In the first three parts of the experiment you will listen to a one second clip of music and then be presented with either another song, an image, or a word<p>",
-      "Your task is to say whether the emotion in the song you first heard matches the emotion in the stimulus that follows<p>",
-      "On the next page a song will play automatically. </p><p>Please adjust the volume so that the song is at a comfortable volume <br>",
-      "Adjust the volume on your computer so that it is at a comfortable level. </p>" +
-      "<p><audio autoplay src='audio/test_audio_short.mp3'></audio></p>" +
-      "Press next when the audio is at a comfortable level",
-      "<p> The experiment will begin when you press next. </p><p>Remember that you are rating emotion or feeling you think the song is trying to express"
-    ],
-    show_clickable_nav: true
-  }
 
 
   /* define audio */
@@ -90,7 +69,8 @@
     "audio/3_Old_Blacktop.mp3",
     "audio/12_Skinny_Love.mp3",
     "audio/15_Bunkertor_7.mp3",
-    "audio/2_Blood_On_The_Ground.mp3"
+    "audio/2_Blood_On_The_Ground.mp3",
+    "audio/3_It_Only_Hurts_When_I'm_Breathing.mp3" 
   ]
 
   /* define images */
@@ -102,7 +82,9 @@
     "img/BM08ANS.jpg",
     "img/BF34HAS.jpg",
     "img/BM08HAS.jpg",
-    "img/BF05ANS.jpg"
+    "img/BF05ANS.jpg",
+    "img/AF06HAS.jpg",
+    "static/img/instruct.jpg"
   ]
 
   // define durations 
@@ -111,6 +93,30 @@
   isi_duration = 200
   iti_duration = 1500
 
+// key position instructions 
+
+var key_img = {
+  type: 'image-keyboard-response',
+  prompt: "<p>Please place you left index finger on the left arrow (&larr;) and your right index finger on the right arrow (&rarr;)</p> <br> Press any key to continue",
+  stimulus: "static/img/instruct.jpg"
+}
+
+// create instructions 
+
+var instructions = {
+  type: 'instructions',
+  pages: [
+    "Welcome to the Experiment. Please Click next to begin",
+    "<p>In this study you will listen to a number of short musical clips before hearing either another clip, seeing a word, or seeing a face.</p>",
+    "<p> Your task is to say whether the emotion expressed in the two stimuli match",
+    "On the next page a song will play automatically. </p><p>Please adjust the volume so that the song is at a comfortable volume <br>",
+    "Adjust the volume on your computer so that it is at a comfortable level. </p>" +
+    "<p><audio autoplay src='audio/test_audio_short.mp3'></audio></p>" +
+    "Press next when the audio is at a comfortable level",
+    "<p> The experiment will begin when you press next."
+  ],
+  show_clickable_nav: true
+}
   // create iti 
   var iti = {
     type: 'html-keyboard-response',
@@ -158,33 +164,44 @@
   }
 
   //feedback for practice trials
-  var feedback = {
+  var feedback_congruent = {
     type: 'html-keyboard-response',
     stimulus: function () {
       var last_trial_correct = jsPsych.data.get().last(1).values()[0].correct;
       if (last_trial_correct) {
-        return "<p>Correct! The emotions do match!</p><br> Press the spacebar to continue to the experimental trials";
+        return "<p>Correct! The emotions do match!</p><br> Press the any key to continue to the next trial";
       } else {
         return "<p>That was incorrect.<br><br>" +
           "<strong><br> When the emotion is the same press the left arrow (&larr;) <br><br> when the emotions are different press the right arrow (&rarr;)</p></strong>" +
-          "Press the spacebar to continue to the experimnetal trials"
+          "Press the any key to continue to the next trial"
       }
-    },
-    stimulus_duration: 5000
+    }
   }
 
-  var begin_trails = {
+  var feedback_incongruent = {
     type: 'html-keyboard-response',
-    stimulus: 'The practice trial is now complete. Press the spacebar to begin the experimental trials',
-    choices: ['spacebar']
+    stimulus: function () {
+      var last_trial_correct = jsPsych.data.get().last(1).values()[0].correct;
+      if (last_trial_correct) {
+        return "<p>Correct! The emotions do not match!</p><br> Press the any key to continue to the next trial";
+      } else {
+        return "<p>That was incorrect.<br><br>" +
+          "<strong><br> When the emotion is the same press the left arrow (&larr;) <br><br> when the emotions are different press the right arrow (&rarr;)</p></strong>" +
+          "Press the any key to continue to the the next trial"
+      }
+    }
+  }
+
+  var begin_trials = {
+    type: 'html-keyboard-response',
+    stimulus: 'The practice trials are now complete. Press the any key to begin the experimental trials'
   }
 
   //end of bloick messsage
 
   var end_block = {
     type: "html-keyboard-response",
-    stimulus: "<p>This part of the experiment is now over </p><br><strong>Press the spacebar to move onto the next part</strong>",
-    choices: ['spacebar'],
+    stimulus: "<p>This part of the experiment is now over </p><br><strong>Press the any key to move onto the next part</strong>",
     data: {
       task: "end_block"
     }
@@ -199,7 +216,7 @@
       "<strong><p>If the emotion in the two songs match the press the left arrow key (&larr;)<br></p>" +
       "<p>If the emotion in the two songs does not match then press the right arrow key (&rarr;)</p></strong>" +
       "<p>Please be as quick and accurate as possible</p>" +
-      "<p>The first trail is a practice so you can get used to the task</p>" +
+      "<p>The first two trials are a practice so you can get used to the task</p>" +
       "<p>Press the space bar to begin</p>",
     choices: ['spacebar'],
     data: {
@@ -210,7 +227,7 @@
 
   //practice trial
 
-  var prac_music_target = {
+  var prac_music_target_congruent = {
     type: 'audio-keyboard-response',
     stimulus: "audio/2_Blood_On_The_Ground.mp3",
     choices: [37, 39],
@@ -227,13 +244,44 @@
     }
   }
 
+  var prac_music_target_incongruent = {
+    type: 'audio-keyboard-response',
+    stimulus: "audio/3_It_Only_Hurts_When_I'm_Breathing.mp3",
+    choices: [37, 39],
+    trial_duration: target_duration,
+    on_finish: function (data) {
+      if (data.key_press == 39) { // 70 is the numeric code for f
+        data.correct = true; // can add property correct by modify data object directly
+      } else {
+        data.correct = false;
+      }
+    },
+    data: {
+      task: 'song_practice_target'
+    }
+  }
 
-  var music_prac = {
-    timeline: [iti, prac_cue, isi, prac_music_target, feedback, begin_trails],
+
+  var music_prac_trial_congruent = {
+    timeline: [iti, prac_cue, isi, prac_music_target_congruent, feedback_congruent],
     data: {
       trial: 'false'
     }
   }
+
+  var music_prac_trial_incongruent = {
+    timeline: [iti, prac_cue, isi, prac_music_target_incongruent, feedback_incongruent],
+    data: {
+      trial: 'false'
+    }
+  }
+
+  var music_prac = {
+    timeline: jsPsych.randomization.shuffle([music_prac_trial_congruent, music_prac_trial_incongruent]),
+    repetitions: 1
+  }
+
+
 
   /* Create music match task */
 
@@ -241,7 +289,7 @@
     type: "audio-keyboard-response",
     stimulus: jsPsych.timelineVariable('target_song'),
     trial_duration: target_duration,
-    choices: (37, 39),
+    choices: [37, 39],
     data: {
       task: 'target',
       target_stimulus: jsPsych.timelineVariable('target_song'),
@@ -260,7 +308,7 @@
   }
 
   var music_block = {
-    timeline: [music_instructions, music_prac, music_trials, end_block],
+    timeline: [music_instructions, key_img, music_prac, begin_trials, music_trials, end_block],
     data: {
       block: 'music'
     }
@@ -273,7 +321,7 @@
 
   // face practice
 
-  var prac_face_target = {
+  var prac_face_target_congruent = {
     type: "image-keyboard-response",
     stimulus: "img/BF05ANS.JPG",
     stimulus_duration: stimulus_duration,
@@ -292,13 +340,44 @@
     }
   }
 
+  var prac_face_target_incongruent = {
+    type: "image-keyboard-response",
+    stimulus: "img/AF06HAS.jpg",
+    stimulus_duration: stimulus_duration,
+    trial_duration: target_duration,
+    response_ends_trail: true,
+    choices: [37, 39],
+    data: {
+      task: 'face_practice_target'
+    },
+    on_finish: function (data) {
+      if (data.key_press == 39) { // 37 is the numeric code for <-
+        data.correct = true; // can add property correct by modify data object directly
+      } else {
+        data.correct = false;
+      }
+    }
+  }
 
-  var face_prac = {
-    timeline: [iti, prac_cue, isi, prac_face_target, feedback, begin_trails],
+  var face_prac_trial_congruent = {
+    timeline: [iti, prac_cue, isi, prac_face_target_congruent, feedback_congruent],
     data: {
       trial: 'false'
     }
   }
+
+  var face_prac_trial_incongruent = {
+    timeline: [iti, prac_cue, isi, prac_face_target_incongruent, feedback_incongruent],
+    data: {
+      trial: 'false'
+    }
+  }
+
+  var face_prac = {
+    timeline: jsPsych.randomization.shuffle([face_prac_trial_congruent, face_prac_trial_incongruent]),
+    repetitions: 1
+  }
+
   // face instructions
 
   var face_instructions = {
@@ -346,7 +425,7 @@
   // create face block
 
   var face_block = {
-    timeline: [face_instructions, face_prac, face_trials, end_block],
+    timeline: [face_instructions, key_img, face_prac, begin_trials, face_trials, end_block],
     data: {
       block: 'face'
     }
@@ -358,7 +437,7 @@
 
   // practice word 
 
-  var prac_word_target = {
+  var prac_word_target_congruent = {
     type: 'html-keyboard-response',
     stimulus: '<p style="font-size: 48px; font-family: monospace;">ANGRY</p>',
     stimulus_duration: stimulus_duration,
@@ -377,12 +456,44 @@
     }
   }
 
-  var word_prac = {
-    timeline: [iti, prac_cue, isi, prac_word_target, feedback, begin_trails],
+  var prac_word_target_incongruent = {
+    type: 'html-keyboard-response',
+    stimulus: '<p style="font-size: 48px; font-family: monospace;">SAD</p>',
+    stimulus_duration: stimulus_duration,
+    trial_duration: target_duration,
+    response_ends_trail: true,
+    choices: [37, 39],
+    data: {
+      task: 'face_practice_target'
+    },
+    on_finish: function (data) {
+      if (data.key_press == 39) { // 70 is the numeric code for f
+        data.correct = true; // can add property correct by modify data object directly
+      } else {
+        data.correct = false;
+      }
+    }
+  }
+
+
+  var word_prac_trial_congruent = {
+    timeline: [iti, prac_cue, isi, prac_word_target_congruent, feedback_congruent],
     data: {
       trial: 'false'
     }
   }
+
+  var word_prac_trial_incongruent = {
+    timeline: [iti, prac_cue, isi, prac_word_target_incongruent, feedback_incongruent],
+    data: {
+      trial: 'false'
+    }
+  }
+
+  var word_prac = {
+    timeline: jsPsych.randomization.shuffle([word_prac_trial_congruent, word_prac_trial_incongruent]),
+    repetitions: 1
+  } 
 
   var word_instructions = {
     type: "html-keyboard-response",
@@ -425,7 +536,7 @@
   }
 
   var word_block = {
-    timeline: [word_instructions, word_prac, word_trials, end_block],
+    timeline: [word_instructions, key_img, word_prac, begin_trials, word_trials, end_block],
     data: {
       block: 'word'
     }
@@ -728,7 +839,7 @@
     on_finish: function() {
 			jsPsych.data.get().localSave('json', subject_id + '.json');	
     },
-    timeline: [instructions, randomise_blocks, tas_20, demographic_intro, msi_ratings, demographics, thanks],
+    timeline: [consent, instructions, randomise_blocks, tas_20, demographic_intro, msi_ratings, demographics, thanks],
     use_webaudio: false
   });
   //});
