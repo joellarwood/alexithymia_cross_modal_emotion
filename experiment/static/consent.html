@@ -7,6 +7,38 @@
   </head>
   <body>
 
+  </script>
+
+  <script>
+
+//https://stackoverflow.com/questions/4565112/javascript-how-to-find-out-if-the-user-browser-is-chrome    
+//https://stackoverflow.com/questions/8317958/show-div-based-on-if-statement
+  window.onload = function(){ 
+  var isChromium = window.chrome;
+var winNav = window.navigator;
+var vendorName = winNav.vendor;
+var isOpera = typeof window.opr !== "undefined";
+var isIEedge = winNav.userAgent.indexOf("Edge") > -1;
+var isIOSChrome = winNav.userAgent.match("CriOS");
+
+if (isIOSChrome) { 
+  document.getElementById('consent').style.display = "none";
+} else if(
+  isChromium !== null &&
+  typeof isChromium !== "undefined" &&
+  vendorName === "Google Inc." &&
+  isOpera === false &&
+  isIEedge === false
+) {
+  document.getElementById('notrun').style.display = "none";
+} else { 
+  document.getElementById('consent').style.display = "none";
+}
+
+  }
+
+</script>
+
     <div id="consent">
       <p>
       <br><br><br>
@@ -17,7 +49,7 @@
         Please read the information sheet below and, if willing to participate, click the checkbox and continue.
       </p>
 
-      <iframe src="static/info_sheet.pdf#toolbar=0" height="500px" width="100%"></iframe>
+      <iframe src="static/info_sheet.pdf#toolbar=0" height="500px" width="100%"></iframe> 
 
       <p>
         <input type="checkbox" id="consent_checkbox" />
@@ -26,6 +58,9 @@
       <button type="button" id="start">Continue</button>
     </div>
 
+    <div id ='notrun'> 
+      <p> Error: This browser is not supported</p>
+    </div>
 
   </body>
 </html>
