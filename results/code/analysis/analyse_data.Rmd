@@ -1,0 +1,127 @@
+---
+title: "Analysis Cross Modal Emotions"
+author: "Joel Larwood"
+date: "24/11/2020"
+output: 
+  html_document:
+    toc: true
+    code_folding: 'hide'
+editor_options: 
+  chunk_output_type: console
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+library(tidyverse)
+library(emmeans)
+library(lmerTest)
+library(sjPlot)
+```
+
+```{r}
+trials <- here::here(
+  "data",
+  "processed",
+  "trials.rds"
+) %>% 
+  read_rds()
+
+tas <- here::here(
+  "data",
+  "processed",
+  "tas.rds"
+) %>% 
+  read_rds()
+
+data <- trials %>% 
+  right_join(
+    select(tas, pid:tas)
+  )
+
+glimpse(data)
+
+block_agg <- trials %>% 
+  group_by(
+    pid, block
+  ) %>% 
+  summarise(
+    mean = mean (rt),
+    sd = sd(rt),
+    se = plotrix::std.error(rt),
+    hit = sum(hit),
+    cor_rej = sum(cor_rej),
+    miss = sum(miss),
+    false_alarm = sum(false_alarm),
+    d_prime = psycho::dprime(
+          n_hit = hit,
+          n_fa = false_alarm,
+          n_miss = miss,
+          n_cr = cor_rej
+        )[["dprime"]]
+  ) %>% 
+  right_join(
+    select(tas, pid:tas)
+  )
+
+glimpse(block_agg)
+```
+
+
+# Reaction Time Data
+
+```{r}
+trials_rt <- lmerTest::lmer(
+  rt ~ block + (1 + block| pid),
+  data = data
+)
+
+trials_rt_tas <- lmerTest::lmer(
+  rt ~ block * tas + (1 + block| pid),
+  data = data
+)
+
+sjPlot::tab_model(
+  trials_rt,
+  trials_rt_tas,
+  show.aic = TRUE
+)
+
+sjPlot::plot_model(
+  trials_rt_tas,
+  type = "int",
+  mdrt.values = "meansd"
+)
+
+```
+
+# Accuracy data
+
+```{r}
+trials_acc <- lmerTest::lmer(
+  d_prime ~ block + (1 | pid),
+  data = block_agg
+)
+
+sjPlot::plot_model(
+  trials_acc,
+  type = "emm",
+  terms = "block"
+)
+
+trials_acc_tas <- lmerTest::lmer(
+  d_prime ~ block * tas + (1 | pid),
+  data = block_agg
+)
+
+sjPlot::plot_model(
+  trials_acc_tas,
+  type = "int",
+  mdrt.values = "meansd"
+)
+
+```
+
+

@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>title</title>
+    <link href="jstatic/css/static.css" rel="stylesheet" type="text/css">
+    </link>
+</head>
+
+<body>
+
+    </script>
+
+    <script>
+        //https://stackoverflow.com/questions/4565112/javascript-how-to-find-out-if-the-user-browser-is-chrome    
+        //https://stackoverflow.com/questions/8317958/show-div-based-on-if-statement
+        window.onload = function () {
+            var isChromium = window.chrome;
+            var winNav = window.navigator;
+            var vendorName = winNav.vendor;
+            var isOpera = typeof window.opr !== "undefined";
+            var isIEedge = winNav.userAgent.indexOf("Edge") > -1;
+            var isIOSChrome = winNav.userAgent.match("CriOS");
+
+            if (isIOSChrome) {
+                document.getElementById('run').style.display = "none";
+            } else if (
+                isChromium !== null &&
+                typeof isChromium !== "undefined" &&
+                vendorName === "Google Inc." &&
+                isOpera === false &&
+                isIEedge === false
+            ) {
+                document.getElementById('notrun').style.display = "none";
+                // Your application has indicated there's an error
+                window.setTimeout(function () {
+
+                    // Move to a new location or you can do something else
+                    window.location.href = "https://www.google.co.in";
+
+                }, 2000);
+
+            } else {
+                document.getElementById('run').style.display = "none";
+            }
+
+        }
+    </script>
+
+    <div id="run">
+        You will be redirected to the experiment now
+    </div>
+
+    <div id='notrun'>
+        <p> Error: This browser is not supported</p>
+    </div>
+
+</body>
+
+</html>

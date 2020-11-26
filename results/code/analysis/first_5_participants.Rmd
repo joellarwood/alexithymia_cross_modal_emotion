@@ -1,0 +1,306 @@
+---
+title: "First 5 Participants"
+author: "Joel Larwood"
+date: "20/11/2020"
+output: 
+  html_document:
+    code_folding: 'hide'
+    toc: true
+editor_options: 
+  chunk_output_type: console
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE,
+                      message = FALSE,
+                      warning = FALSE)
+
+```
+
+```{r loadin}
+library(tidyverse)
+library(jsonlite)
+library(lmerTest)
+library(brms)
+library(emmeans)
+library(plotrix)
+library(psycho)
+```
+
+
+This is a preliminary analysis of 5 participants collected thus far for the study. This is to confirm is any changes need to be made and test the analysis pipeline. The pre-registration will be updated subsequent to this. No analysis of individual differences will take place. 
+
+```{r legeacydata, eval=FALSE}
+data <- jsonlite::stream_in(
+  file(
+    here::here(
+      "results", # this line  needs to be remnoved to knit
+      "data",
+      "raw",
+      "pre_launch",
+      "prolific_5.json"
+    )
+  )
+  )
+
+glimpse(data)
+
+
+## The data comes in a wide form with each participant indicated by .num on the column names. 
+## SO I need to make it wide by selecting the relevant columns and then row binding so the data is long with a participant ID row
+
+data <- data %>% 
+  select(
+    contains(
+      c(
+        "trial",
+        "internal_node_id",
+        "rt",
+        "task",
+        "block",
+        "correct",
+        "cue_song", 
+        "target_stimulus",
+        "target_emotion",
+        "condition", 
+        "key_press"
+      )
+    )
+  ) %>% 
+  rename_with(.cols = !contains("."),
+              ~paste0(.x, ".0") # add .0 to the rows without a postscript for uniform column naming for loop 
+  ) 
+
+glimpse(data)  
+
+data_loop <- data.frame() # empty data frame to loop values into 
+
+
+for (i in 0:4){ # participant numbers (zero index)
+  pid <- i
+  tmp <- select(
+    data,
+    paste(
+      c(
+        "internal_node_id",
+        "rt",
+        "trial",
+        "task",
+        "block",
+        "correct",
+        "cue_song", 
+        "target_stimulus",
+        "target_emotion",
+        "condition", 
+        "key_press"
+      ),
+      pid,
+      sep = "." # select rows for participant
+    )
+  )
+    tmp <- rename_with(
+    tmp,
+    ~gsub(".[[:digit:]]{1,2}", # delete the .num aspect of column names for rbind 
+          "",
+          .x)
+  )
+    tmp["pid"] <- pid # add column that contains participant id
+    data_loop <- bind_rows(data_loop, tmp) # stack long data frames ontop of eachotehr
+}
+
+glimpse(data_loop)
+
+
+long <- data_loop %>% 
+  dplyr::filter(
+    task %in% c("cue", "target"),
+    !is.na(rt),
+    trial != "false"
+  ) %>% 
+  tidyr::separate(
+    col = internal_node_id, 
+    into = c("node_1", "node_2", "node_3", "node_4", "node_5"),
+    sep = "-",
+  ) %>% 
+  tidyr::separate(
+    col = node_5,
+    into = c("tmp", "block_rep")
+  ) %>% 
+  dplyr::select(
+    -tmp,
+    -contains("node")
+  ) %>% 
+  dplyr::mutate(
+    # give semantic labels to keypress
+    response = case_when( 
+      key_press == 37 ~ "congruent",
+      key_press == 39 ~ "incongruent"
+    ),
+    across(
+      where(is.character),
+      as.factor),
+    pid = as.factor(pid),
+    # code correct response
+    correct_response = as.factor(
+      case_when(
+      condition == "congruent" & key_press == 37 | condition == "incongruent" & key_press == 39 ~ "correct",
+      condition == "congruent" & key_press == 39 | condition == "incongruent" & key_press == 37 ~ "incorrect"
+    )
+    ),
+    # data for d prime
+    # present == correct match 
+    hit = case_when(
+      condition == "congruent" & response == "congruent" ~ TRUE,
+      TRUE ~ FALSE
+    ),
+    # correct reject when incongruent 
+    cor_rej = case_when(
+      condition == "incongruent" & response == "incongruent" ~ TRUE,
+      TRUE ~ FALSE
+    ),
+    false_alarm = case_when(
+      condition == "incongruent" & response == "congruent" ~ TRUE,
+      TRUE ~ FALSE
+    ),
+    miss = case_when(
+      condition == "congruent" & response == "incongruent" ~ TRUE,
+      TRUE ~ FALSE
+    ),
+    block = forcats::fct_relevel(block, "word")
+  ) 
+
+glimpse(long)
+  
+```
+
+
+```{r}
+source(here::here(
+  "results",
+  "code",
+  "helper_functions",
+  "process_jspsych.R"
+))
+
+data <- here::here(
+  "results",
+  "data",
+  "raw",
+  "pre_launch",
+  "prolific_5.json"
+) %>% 
+  jspsych_data()
+
+long <- get_trial_data(data)
+
+surveys <- get_survey_data(data)
+
+```
+
+# Identitfy data patterns 
+
+## Participant level 
+
+```{r}
+long %>% 
+  ggplot2::ggplot(
+    aes(
+      x = block,
+      y = rt,
+      color = block,
+      fill = block
+    )
+  ) + 
+  # geom_point(aes(
+  #   color = correct_response,
+  #   fill = correct_response)
+  #   )+ 
+  geom_violin(alpha = .2) + 
+  geom_boxplot(alpha = .2) + 
+ # coord_flip() + 
+  facet_wrap(~pid, nrow = 2) + 
+  ggtitle(
+    label = "data from each participant"
+  )
+```
+
+```{r}
+p_dat <- long %>% 
+  group_by(
+    pid, block
+  ) %>% 
+  summarise(
+    mean = mean (rt),
+    sd = sd(rt),
+    se = plotrix::std.error(rt),
+    hit = sum(hit),
+    cor_rej = sum(cor_rej),
+    miss = sum(miss),
+    false_alarm = sum(false_alarm),
+    d_prime = psycho::dprime(
+          n_hit = hit,
+          n_fa = false_alarm,
+          n_miss = miss,
+          n_cr = cor_rej
+        )[["dprime"]]
+  )
+
+p_dat %>% 
+  knitr::kable() %>% 
+  kableExtra::kable_styling()
+
+```
+## Condition level 
+
+```{r}
+
+long %>% 
+  group_by(block) %>% 
+  summarise(
+    mean = mean(rt),
+    se = std.error(rt),
+  ) %>% 
+  ggplot(
+    aes(x = block,
+        y = mean,
+        fill = block,
+        color = block)
+  ) + 
+  geom_col(alpha = .5) + 
+  geom_errorbar(
+    aes(ymin = mean - se, 
+                ymax = mean + se),
+    width = .2
+  ) + 
+  theme_classic() +
+  ggtitle(label = "Mean RT collapsed ascross participants")
+
+
+```
+
+# Quick fit 
+
+```{r}
+
+quick_fit <- lmerTest::lmer(
+  rt ~ block + (1 + block | pid) + (1 | target_stimulus),
+  data = long) # set word condition as referecne level
+
+
+sjPlot::tab_model(quick_fit)
+sjPlot::plot_model(
+  quick_fit, 
+  type = "emm", 
+  term = "block"
+  ) +
+  theme_classic() + 
+  ylab("Estimated Mean RT") + 
+  xlab("Trial type")
+
+lmerTest::difflsmeans(quick_fit)
+
+
+```
+
+
+
