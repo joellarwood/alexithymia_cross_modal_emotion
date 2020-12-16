@@ -74,13 +74,15 @@ glimpse(data)
 
 # Reaction time -----------------------------------------------------------
 
+
+# Stimulus only -----------------------------------------------------------
+
 rt_imputed_model_block <- lmerTest::lmer(
-  rt ~ block  + (1 + block | pid) + (1 | cue_target),
+  rt ~ block  + (1 + block | pid),
   data = data,
   REML = FALSE
 )
 
-# Model failed to converge with max|grad| = 0.00429247 (tol = 0.002, component 1)
 # save model 
 
 rt_imputed_model_block %>% 
@@ -97,8 +99,13 @@ rt_imputed_model_block %>%
 summary(rt_imputed_model_block)
 anova(rt_imputed_model_block, type = 3)
 
+
+
+# Stimulus and TAS --------------------------------------------------------
+
+
 rt_imputed_model_block_tas <- lmerTest::lmer(
-  rt ~ block * tas_imputed_z + (1 + block | pid) + (1 | cue_target),
+  rt ~ block * tas_imputed_z + (1 + block | pid),
   data = data,
   REML = FALSE
 )
@@ -116,13 +123,16 @@ rt_imputed_model_block_tas %>%
 anova(rt_imputed_model_block_tas, type = 3)
 
 
-rt_imputed_model_block_tas_emo <- lmerTest::lmer(
-  rt ~ block * tas_imputed_z + block * em_imputed_z + (1 + block | pid) + (1 | cue_target),
+# Stimulus * TAS + Stimulus * Gold MSI ------------------------------------
+
+
+rt_imputed_model_block_tas_msi <- lmerTest::lmer(
+  rt ~ block * tas_imputed_z + block * em_imputed_z + (1 + block | pid),
   data = data,
   REML = FALSE
 )
 
-rt_imputed_model_block_tas_emo %>% 
+rt_imputed_model_block_tas_msi %>% 
   write_rds(
     here::here(
       "results",
@@ -133,12 +143,15 @@ rt_imputed_model_block_tas_emo %>%
     )
   )
 
-anova(rt_imputed_model_block_tas_emo, type = 3)
+anova(rt_imputed_model_block_tas_msi, type = 3)
 
 
-anova(rt_imputed_model_block, rt_imputed_model_block_tas, rt_imputed_model_block_tas_emo)
 
-# note no change in pattern of results
+# Compare Models ----------------------------------------------------------
+
+AIC(rt_imputed_model_block)
+AIC(rt_imputed_model_block_tas)
+AIC(rt_imputed_model_block_tas)
 
 # D prime -----------------------------------------------------------------
 
@@ -214,22 +227,22 @@ d_imputed_model_block_tas %>%
     )
   )
 
-d_imputed_model_block_tas_emo <- lmerTest::lmer(
+d_imputed_model_block_tas_msi <- lmerTest::lmer(
   d_prime ~ block * tas_imputed_z + block * em_imputed_z + (1| pid ),
   data = data_agg,
   REML = FALSE
 )
 
-d_imputed_model_block_tas_emo %>% 
+d_imputed_model_block_tas_msi %>% 
   write_rds(
     here::here(
       "results",
       "models",
       "d_prime",
       "imputed",
-      "d_imputed_block_tas_emo_model.rds"
+      "d_imputed_block_tas_msi_model.rds"
     )
   )
 
-anova(d_imputed_model_block, d_imputed_model_block_tas, d_imputed_model_block_tas_emo)
+anova(d_imputed_model_block, d_imputed_model_block_tas, d_imputed_model_block_tas_msi)
 
