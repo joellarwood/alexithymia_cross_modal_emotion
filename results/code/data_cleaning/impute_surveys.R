@@ -33,9 +33,29 @@ data_missing <- here::here(
     -mt
   )
 
+# Here I want to get the proprtion of missing for each item 
+
+prop_miss_col <- colMeans(is.na(data_missing)) %>% 
+  as.data.frame() %>% 
+  filter(. > 0) %>% 
+  arrange(desc(.))
+
+max(prop_miss_col) * 100 
+
+prop_miss_p <- naniar::prop_miss_row(data_missing) %>% 
+  as.data.frame() %>% 
+  filter(. > 0) %>% 
+  arrange(desc(.))
+
+max(prop_miss_p) * 100 
+
+# Most cases don't have musch missing data. I will estimate data for participnats who completed > 90% of items
+
 data_imputed <- data_missing %>%
+  naniar::add_prop_miss() %>% 
+  filter(prop_miss_all < .1) %>% 
   missRanger::missRanger(
-    formula = . ~ . - pid,
+    formula = . ~ . - pid - prop_miss_all,
     pmm.k = 3
   )
 
@@ -93,3 +113,5 @@ data_imputed_z %>%
       "survey_scores_imputed.rds"
     )
   )
+
+

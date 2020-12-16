@@ -15,6 +15,159 @@ library(ggplot2) # Create Elegant Data Visualisations Using the Grammar of Graph
 library(magrittr) # A Forward-Pipe Operator for R
 ```
 
+```{r}
+data <- here::here( # this data is for the RT measure
+  "results",
+  "data",
+  "modelling_data",
+  "modelling_data_acc.rds"
+) %>% 
+  read_rds()
+
+data_agg <- here::here( # this data is for the d' measure
+  "results",
+  "data",
+  "modelling_data",
+  "modelling_data_d.rds"
+) %>% 
+  read_rds()
+
+surveys_imputed <- here::here( # this data is for the d' measure
+  "results",
+  "data",
+  "processed",
+  "survey_scores_imputed.rds"
+) %>% 
+  read_rds()
+
+```
+
+# Describe sample
+
+```{r}
+ddf_vec <- paste(
+  "tas",
+  c("2", "4", "11", "12", "17"),
+  sep = "_"
+)
+
+
+dif_vec = paste(
+  "tas",
+  c("1", "3", "6", "7", "9", "13", 14),
+  sep = "_"
+)
+
+eot_vec = paste(
+  "tas",
+  c("5", "8", "10", "15", "16", "18", "19", "20"),
+  sep = "_"
+)
+
+tas_vec <- paste(
+  "tas", 
+  c(1:20),
+  sep = "_"
+)
+
+em_vec <- paste(
+  "em", 
+  c("01", "02", "03", "04", "05", "06"),
+  sep = "_"
+)
+
+ae_vec <- paste(
+  "ae",
+  c("01", "05", "07"),
+  sep = "_"
+)
+
+pa_vec <- paste(
+  "pa",
+  c("03", "06", "07"),
+  sep = "_"
+)
+
+mt_vec <- paste(
+  "mt",
+  c("01", "02", "06"),
+  sep = "_"
+)
+```
+
+```{r}
+jl_alpha <- function(data, vars){
+  psych::alpha(select(data,
+                      vars))$total$raw_alpha
+}
+```
+
+
+```{r}
+describe <- surveys_imputed %>% 
+  transmute(
+    age = age,
+    ddf = select(., ddf_vec) %>% rowSums(na.rm = TRUE),
+    dif = select(., dif_vec) %>% rowSums(na.rm = TRUE),
+    eot = select(., eot_vec) %>% rowSums(na.rm = TRUE),
+    tas = select(., tas_vec) %>% rowSums(na.rm = TRUE),
+    msi_em = select(., em_vec) %>% rowSums(na.rm = TRUE),
+    msi_ae = select(., ae_vec) %>% rowSums(na.rm = TRUE),
+    msi_pa = select(., pa_vec) %>% rowSums(na.rm = TRUE),
+    msi_mt =select(., mt_vec) %>% rowSums(na.rm = TRUE)
+  ) %>% 
+  psych::describe() %>% 
+  data.frame() %>% 
+  select(
+    n, 
+    mean,
+    sd
+  ) %>% 
+  rownames_to_column("variable") %>%
+  mutate(
+    alpha = case_when(
+      variable == "ddf" ~ jl_alpha(surveys_imputed, ddf_vec),
+      variable == "dif" ~ jl_alpha(surveys_imputed, dif_vec),
+      variable == "eot" ~ jl_alpha(surveys_imputed, eot_vec),
+      variable == "tas" ~ jl_alpha(surveys_imputed, tas_vec),
+      variable == "msi_em" ~ jl_alpha(surveys_imputed, em_vec),
+      variable == "msi_ae" ~ jl_alpha(surveys_imputed, ae_vec),
+      variable == "msi_pa" ~ jl_alpha(surveys_imputed, pa_vec),
+      variable == "msi_mt" ~ jl_alpha(surveys_imputed, mt_vec)
+    )
+  )
+
+
+describe %>% 
+  knitr::kable("html") %>% 
+  kableExtra::kable_styling()
+```
+
+# Correaltions 
+
+
+```{r}
+
+cor_data <- surveys_imputed %>% 
+  select(
+    age,
+    tas:mt
+  ) %>% 
+  mutate(
+    age = as.numeric(age)
+  ) %>% 
+  drop_na()
+
+ggcorrplot::ggcorrplot(
+  corr = cor(cor_data),
+  method = "circle",
+  colors = c("red", "grey", "blue"),
+  type = "lower",
+  lab = TRUE,
+  p.mat = ggcorrplot::cor_pmat(cor_data),
+  insig = "blank"
+)
+```
 
 # Reaction Time Models 
 

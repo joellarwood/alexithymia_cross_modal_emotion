@@ -222,6 +222,9 @@ tas %>%
 
 
 
+
+
+
 # Gold MSI ----------------------------------------------------------------
 
 msi <- surveys %>%
@@ -284,6 +287,9 @@ demos_widen <- demos %>%
     pid,
     gender, 
     age
+  ) %>% 
+  mutate(
+    gender = gendercodeR::recode_gender(gender = gender, dictionary = gendercodeR::broad)
   )
 
 demos_widen %>%
