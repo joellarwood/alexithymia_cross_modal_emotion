@@ -69,7 +69,7 @@ data_agg <- trials %>%
 
 block_d <- lmer(
   d_prime ~ block + (1 | pid),
-  data = data_agg
+  data = drop_na(data_agg, tas_imputed_z)
 )
 
 anova(block_d, 3)
@@ -77,23 +77,33 @@ anova(block_d, 3)
 
 # Main effect of block and TAS --------------------------------------------
 
-block_tas_d <- lmer(
-  d_prime ~ block + tas_imputed_z + (1 | pid),
-  data = data_agg
-)
-
-anova(block_tas_d, 3)
+# block_tas_d <- lmer(
+#   d_prime ~ block + tas_imputed_z + (1 | pid),
+#   data = data_agg
+# )
+# 
+# anova(block_tas_d, 3)
 
 
 # Interaction between block and TAS ---------------------------------------
 
 block_by_tas_d <- lmer(
   d_prime ~ block * tas_imputed_z + (1 | pid),
-  data = data_agg
+  data = drop_na(data_agg, tas_imputed_z)
 )
 
 anova(block_by_tas_d, 3)
 
+
+# Compare Hypothesised models ---------------------------------------------
+
+anova(block_d, block_by_tas_d, type = 3)
+
+
+# Follow up preferred model -----------------------------------------------
+
+emmeans_d <- pairs(emmeans(block_by_tas_d, specs = ~block))
+summary(emmeans_d, infer = TRUE)
 
 # Interaction between block and TAS and between block and perceptu --------
 

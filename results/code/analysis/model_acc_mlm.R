@@ -61,7 +61,7 @@ block_ac <- lme4::glmer(
 # Block by TAS ------------------------------------------------------------
 
 block_by_tas_ac <- lme4::glmer(
-  response_num ~ block * tas_z * congruence_num + (congruence_num | pid),
+  response_num ~ block * tas_z * congruence_num + (block | pid),
   data = trial_data,
   family=binomial(link=probit)
 )

@@ -3,6 +3,11 @@
 #################################################################
 
 
+# Load Pacakges -----------------------------------------------------------
+
+library(tidyverse)
+library(lmerTest)
+library(emmeans)
 
 # Load data ---------------------------------------------------------------
 
@@ -37,32 +42,45 @@ glimpse(trial_data)
 
 # Block Only  -------------------------------------------------------------
 
-block_rt <- lmer(
+block_rt <- lmerTest::lmer(
   rt~ block + (block | pid),
-  data = trial_data
+  data = drop_na(trial_data, tas_imputed_z)
 )
 # Model did not converge when random effects for stimulus were added 
 
 anova(block_rt, 3)
 
 
-# Block and TAS main effect -----------------------------------------------
-
-block_tas_rt <- lmer(
-  rt~ block + tas_imputed_z + (block | pid),
-  data = trial_data
-)
-
-anova(block_tas_rt, 3)
+# # Block and TAS main effect -----------------------------------------------
+# 
+# block_tas_rt <- lmer(
+#   rt~ block + tas_imputed_z + (block | pid),
+#   data = trial_data
+# )
+# 
+# anova(block_tas_rt, 3)
 
 # Block and TAS interaction -----------------------------------------------
 
-block_by_tas_rt <- lmer(
+block_by_tas_rt <- lmerTest::lmer(
   rt~ block * tas_imputed_z + (block | pid),
-  data = trial_data
+  data = drop_na(trial_data, tas_imputed_z)
 )
 
 anova(block_by_tas_rt, 3)
+
+
+
+# Compare two models ------------------------------------------------------
+
+anova(block_rt, block_by_tas_rt, type = 3)
+
+
+# Emmeans of preferred model ----------------------------------------------
+
+block_emmeans <- lmerTest::difflsmeans(block_rt)
+
+block_emmeans
 
 # Block and Music Emotions  -----------------------------------------------
 
